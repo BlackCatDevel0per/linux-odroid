@@ -4,12 +4,12 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=b224f02117ed2fbd47692d0f3a84809459827663
+_commit=5b8970c3f2c8cf569288cb2e460d738930e834c5
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
 pkgver=5.5.0
-pkgrel=0.6
+pkgrel=1
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -20,14 +20,14 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('6dbcc3560e9dbfe6f9d8fd91b5fc737a'
-         '8fa393582e9ad8d5d0c903d910318001'
+md5sums=('c2a6e75940227a848682b19406296b3a'
+         '02d7e8461f9348f3f9f229a36279fe97'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
 
 prepare() {
-sed -i s/'EXTRAVERSION = -rc6'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
+#sed -i s/'EXTRAVERSION = -rc6'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
   cd "${srcdir}/${_srcname}"
 
   # Manjaro-ARM patches
