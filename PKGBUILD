@@ -4,12 +4,12 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=a6bde48c7fdf3c2d241bd454e8012c538881b237
+_commit=5abc37e42ff57b888c0c576a9a8e51c9ed1a7d1b
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
 pkgver=5.6.0
-pkgrel=0.4
+pkgrel=0.6
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -20,19 +20,19 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('e9fbbf7f616bcc6ce10c1dc910b1a3d0'
+md5sums=('232966183fb07456b7806976f60a1937'
          'dec7de1881705b7598de1c86110447ed'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
 
 prepare() {
-sed -i s/'EXTRAVERSION = -rc4'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
+sed -i s/'EXTRAVERSION = -rc6'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
   cd "${srcdir}/${_srcname}"
 
   # Manjaro-ARM patches
   # Bootsplash patches
-  
+
   cat "${srcdir}/config" > ./.config
 
   # add pkgrel to extraversion
