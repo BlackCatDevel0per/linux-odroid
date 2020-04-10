@@ -4,12 +4,12 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=5abc37e42ff57b888c0c576a9a8e51c9ed1a7d1b
+_commit=3c0e24b1d7b417e1495106058dc063b3c9ebccb5
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.6.0
-pkgrel=0.6
+pkgver=5.6.2
+pkgrel=1
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -20,14 +20,14 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('232966183fb07456b7806976f60a1937'
-         '24e07ad4d3f4dbf6f005c72645dacb77'
+md5sums=('114c7f5958ae4c87e87148997639c09e'
+         '3bad9cc9b73527224fab6c9ad24e444a'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
 
 prepare() {
-sed -i s/'EXTRAVERSION = -rc6'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
+#sed -i s/'EXTRAVERSION = -rc6'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
   cd "${srcdir}/${_srcname}"
 
   # Manjaro-ARM patches
@@ -41,7 +41,7 @@ sed -i s/'EXTRAVERSION = -rc6'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
   # don't run depmod on 'make install'. We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
 
-#  patch -p1 -i ../0001-add.patch
+    #  patch -p1 -i ../0001-add.patch
 }
 
 build() {
