@@ -8,8 +8,8 @@ _commit=ab9618e28c826b017e7bf844330c7f9a787e4e80
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.6.2
-pkgrel=1
+pkgver=5.7.0
+pkgrel=0.4
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -19,12 +19,37 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         'config'
         'linux.preset'
         '60-linux.hook'
-        '90-linux.hook')
-md5sums=('114c7f5958ae4c87e87148997639c09e'
-         '3bad9cc9b73527224fab6c9ad24e444a'
+        '90-linux.hook'
+        '0001-bootsplash.patch'
+        '0002-bootsplash.patch'
+        '0003-bootsplash.patch'
+        '0004-bootsplash.patch'
+        '0005-bootsplash.patch'
+        '0006-bootsplash.patch'
+        '0007-bootsplash.patch'
+        '0008-bootsplash.patch'
+        '0009-bootsplash.patch'
+        '0010-bootsplash.patch'
+        '0011-bootsplash.patch'
+        '0012-bootsplash.patch'
+)
+md5sums=('5a439c957104ef5b39bde5adc0d55be6'
+         'dc6ada13a961f4a23470fe20b81c6e9d'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
-         '3dc88030a8f2f5a5f97266d99b149f77')
+         '3dc88030a8f2f5a5f97266d99b149f77'
+         'f13cfcd8a4667ecca68bccefee4b8283'
+         'b4acd66a564af83b5409738c40b4a566'
+         'a6407dceae1838f5aa27450401a91be6'
+         'cb78b1c11b917a4d31c4b1567183b76f'
+         '3efea575da7f02ba94789d3b6b81e11f'
+         '2529ad13791b259d80c9d5d702187a65'
+         'efd2367798cc4eab0e15fc0ae44fb003'
+         '50255aac36e002afa477e4527a0550af'
+         '6b6def41b404422dc04b39e2f1adffc8'
+         '1922e3a7727d2bf51641b98d6d354738'
+         'd6b7e4e43e42128cf950251e0d0aee23'
+         'ecfd8a30c480149005fcf349e4d06f4b')
 
 prepare() {
 sed -i s/'EXTRAVERSION = -rc3'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
@@ -41,7 +66,22 @@ sed -i s/'EXTRAVERSION = -rc3'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
   # don't run depmod on 'make install'. We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
 
-    #  patch -p1 -i ../0001-add.patch
+ # Bootsplash patches
+  patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
+  patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+
+  #make menuconfig
+  #cp ./.config "${srcdir}/config"
 }
 
 build() {
