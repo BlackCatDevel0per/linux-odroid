@@ -4,12 +4,12 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=ab9618e28c826b017e7bf844330c7f9a787e4e80
+_commit=6b0b2ec25cf2318450ebb7dfe24a8f1975572b55
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
 pkgver=5.7.0
-pkgrel=0.4
+pkgrel=0.6
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -52,7 +52,7 @@ md5sums=('5a439c957104ef5b39bde5adc0d55be6'
          'ecfd8a30c480149005fcf349e4d06f4b')
 
 prepare() {
-sed -i s/'EXTRAVERSION = -rc3'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
+sed -i s/'EXTRAVERSION = -rc6'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
   cd "${srcdir}/${_srcname}"
 
   # Manjaro-ARM patches
