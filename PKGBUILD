@@ -4,12 +4,12 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=6b0b2ec25cf2318450ebb7dfe24a8f1975572b55
+_commit=c579a87b867cab1256a60e7779f6887b5a528219
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
 pkgver=5.7.0
-pkgrel=0.6
+pkgrel=0.7
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -33,8 +33,8 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
 )
-md5sums=('5a439c957104ef5b39bde5adc0d55be6'
-         'dc6ada13a961f4a23470fe20b81c6e9d'
+md5sums=('53f2ffdd5c91ba7fa4fd951e7aa7e0f5'
+         'd4bb76e51f3a2c5d504bf976724e474b'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -52,7 +52,7 @@ md5sums=('5a439c957104ef5b39bde5adc0d55be6'
          'ecfd8a30c480149005fcf349e4d06f4b')
 
 prepare() {
-sed -i s/'EXTRAVERSION = -rc6'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
+sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
   cd "${srcdir}/${_srcname}"
 
   # Manjaro-ARM patches
@@ -80,8 +80,8 @@ sed -i s/'EXTRAVERSION = -rc6'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
 
-  #make menuconfig
-  #cp ./.config "${srcdir}/config"
+  make menuconfig
+  cp ./.config "${srcdir}/config"
 }
 
 build() {
