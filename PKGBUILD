@@ -80,8 +80,8 @@ sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
 
-  make menuconfig
-  cp ./.config "${srcdir}/config"
+  #make menuconfig
+  #cp ./.config "${srcdir}/config"
 }
 
 build() {
