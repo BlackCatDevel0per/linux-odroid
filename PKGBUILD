@@ -9,7 +9,7 @@ _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
 pkgver=5.7.2
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -32,6 +32,7 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
+        '0001-mmc-meson-g12.patch'
 )
 md5sums=('af27d05018ba1963061443c2992c3442'
          '3e546b64226531bb5a4bd08742d788e9'
@@ -49,7 +50,8 @@ md5sums=('af27d05018ba1963061443c2992c3442'
          '6b6def41b404422dc04b39e2f1adffc8'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
-         'ecfd8a30c480149005fcf349e4d06f4b')
+         'ecfd8a30c480149005fcf349e4d06f4b'
+         '0b49338a471a4684bcd8d9e0089357bb')
 
 prepare() {
 #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
@@ -65,6 +67,9 @@ prepare() {
 
   # don't run depmod on 'make install'. We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
+  
+  #Meson S922 MMC patch
+  patch -Np1 -i "${srcdir}/0001-mmc-meson-g12.patch"
 
  # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
