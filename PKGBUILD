@@ -4,12 +4,12 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=49bd6e492a2bd4ea86b5d6ece1429843b63cd8bc
+_commit=5eca97fa0f0f7d5d8fe0697aa8a6f7e67e1a899f
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.7.2
-pkgrel=2
+pkgver=5.7.5
+pkgrel=1
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -34,8 +34,8 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0012-bootsplash.patch'
         '0001-mmc-meson-g12.patch'
 )
-md5sums=('af27d05018ba1963061443c2992c3442'
-         '3e546b64226531bb5a4bd08742d788e9'
+md5sums=('06e223819416af59dcb2ce0d089cc7bd'
+         'a512d9e9f39540cff1cb6b1f229b826d'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -69,7 +69,7 @@ prepare() {
   sed -i '2iexit 0' scripts/depmod.sh
   
   #Meson S922 MMC patch
-  patch -Np1 -i "${srcdir}/0001-mmc-meson-g12.patch"
+ # patch -Np1 -i "${srcdir}/0001-mmc-meson-g12.patch"
 
  # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
@@ -85,8 +85,8 @@ prepare() {
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
 
-  #make menuconfig
- #cp ./.config "${srcdir}/config"
+    #make menuconfig
+    #cp ./.config "${srcdir}/config"
 }
 
 build() {
