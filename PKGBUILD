@@ -4,11 +4,11 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=5eca97fa0f0f7d5d8fe0697aa8a6f7e67e1a899f
+_commit=9f8e3dddb1717704b3282f3a987ca43b394ce0eb
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.7.5
+pkgver=5.7.6
 pkgrel=1
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
@@ -32,10 +32,9 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
-        '0001-mmc-meson-g12.patch'
 )
-md5sums=('06e223819416af59dcb2ce0d089cc7bd'
-         'a512d9e9f39540cff1cb6b1f229b826d'
+md5sums=('1e485eca081cc56b38c36ff0bebacaed'
+         '1ffe6497c051566cb91ff39c990e0d4d'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -51,7 +50,7 @@ md5sums=('06e223819416af59dcb2ce0d089cc7bd'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         '0b49338a471a4684bcd8d9e0089357bb')
+         )
 
 prepare() {
 #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
@@ -68,8 +67,6 @@ prepare() {
   # don't run depmod on 'make install'. We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
   
-  #Meson S922 MMC patch
- # patch -Np1 -i "${srcdir}/0001-mmc-meson-g12.patch"
 
  # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
