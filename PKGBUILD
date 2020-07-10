@@ -9,7 +9,7 @@ _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
 pkgver=5.7.6
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -34,7 +34,7 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0012-bootsplash.patch'
 )
 md5sums=('1e485eca081cc56b38c36ff0bebacaed'
-         '1ffe6497c051566cb91ff39c990e0d4d'
+         '3182c6d4964f5d62ceeaf9a6532d6400'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
