@@ -4,7 +4,7 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=78cc442f104f2d44654682cc9c903522798be7c9
+_commit=6fabea028afaf0385533865d5472eb3087c75863
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
@@ -81,8 +81,8 @@ prepare() {
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
 
- # make menuconfig
- # cp ./.config "${srcdir}/config"
+  make menuconfig
+  cp ./.config "${srcdir}/config"
 }
 
 build() {
