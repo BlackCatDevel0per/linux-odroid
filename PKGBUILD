@@ -33,8 +33,8 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
 )
-md5sums=('8075668b7655825b821cdff73990ee30'
-         'f0b1844dfa7a27864b796505ef2780bf'
+md5sums=('0959322c3bbbe63736ef0bd41018bd11'
+         '1b9e7c73af42241ad4b5bb8a7ce33b67'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -81,8 +81,8 @@ prepare() {
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
 
-  make menuconfig
-  cp ./.config "${srcdir}/config"
+ # make menuconfig
+ # cp ./.config "${srcdir}/config"
 }
 
 build() {
