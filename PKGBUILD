@@ -4,13 +4,13 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=6790c20f00f2c32dc3e2c47d6a9c03bc655dd92c
+_commit=e96b71ec1bf863bf79b5f95cae737f00ef4d3ae1
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.7.15
+pkgver=5.7.16
 pkgrel=1
-arch=('aarch64')
+arch=('aarch64' 'x86_64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
@@ -32,6 +32,7 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
+        'add-beelink-gt-ultimate.patch'
 )
 md5sums=('0959322c3bbbe63736ef0bd41018bd11'
          '1b9e7c73af42241ad4b5bb8a7ce33b67'
@@ -49,7 +50,8 @@ md5sums=('0959322c3bbbe63736ef0bd41018bd11'
          '6b6def41b404422dc04b39e2f1adffc8'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
-         'ecfd8a30c480149005fcf349e4d06f4b')
+         'ecfd8a30c480149005fcf349e4d06f4b'
+         '37f03b639ab4712ae507f8c30678e220')
 
 prepare() {
 #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
@@ -80,6 +82,9 @@ prepare() {
   patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+
+ # Add Beelink Device Support patches
+ patch -Np1 -i "${srcdir}/add-beelink-gt-ultimate.patch"
 
  # make menuconfig
  # cp ./.config "${srcdir}/config"
@@ -247,3 +252,4 @@ for _p in ${pkgname[@]}; do
   }"
 done
  
+
