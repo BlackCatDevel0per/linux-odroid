@@ -10,7 +10,7 @@ _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
 pkgver=5.7.16
 pkgrel=1
-arch=('aarch64' 'x86_64')
+arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
@@ -34,8 +34,8 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0012-bootsplash.patch'
         'add-beelink-gt-ultimate.patch'
 )
-md5sums=('0959322c3bbbe63736ef0bd41018bd11'
-         '1b9e7c73af42241ad4b5bb8a7ce33b67'
+md5sums=('98b61b45ed027d10bf5ef4514389c1bc'
+         'cc6fbff198776d84a6d0dbfb141e0cb6'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
