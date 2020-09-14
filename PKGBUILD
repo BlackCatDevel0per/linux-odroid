@@ -4,11 +4,11 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=e96b71ec1bf863bf79b5f95cae737f00ef4d3ae1
+_commit=a3b78869b6671bcff1b433850c1084d7b7e7501d
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.7.16
+pkgver=5.8.5
 pkgrel=1
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
