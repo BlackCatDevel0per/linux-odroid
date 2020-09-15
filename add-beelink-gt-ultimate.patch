@@ -33,7 +33,7 @@ diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/
 diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts
 --- /dev/null	2020-08-31 20:38:14.035696519 +0300
 +++ b/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts	2020-08-31 20:40:48.171197971 +0300
-@@ -0,0 +1,422 @@
+@@ -0,0 +1,424 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2017 Martin Blumenstingl <martin.blumenstingl@googlemail.com>.
@@ -302,7 +302,8 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +	pinctrl-names = "default";
 +
 +	rtc: rtc@51 {
-+		status = "okay";
++		/* has to be enabled manually when a battery is connected: */
++		status = "disabled";
 +		compatible = "haoyu,hym8563";
 +		reg = <0x51>;
 +		#clock-cells = <0>;
@@ -453,6 +454,7 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +	vref-supply = <&vddio_ao18>;
 +};
 +
-+&usb0 {
++&usb {
 +	status = "okay";
++	dr_mode = "peripheral";
 +};

@@ -33,9 +33,10 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
         'add-beelink-gt-ultimate.patch'
+        '0019-revert-module-Harden-STRICT_MODULE_RWX.patch'
 )
-md5sums=('98b61b45ed027d10bf5ef4514389c1bc'
-         'cc6fbff198776d84a6d0dbfb141e0cb6'
+md5sums=('6e67df6914950356a4305955237db367'
+         '0abdd7b99370f2491f16cf6ec626cc88'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -51,7 +52,8 @@ md5sums=('98b61b45ed027d10bf5ef4514389c1bc'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         '37f03b639ab4712ae507f8c30678e220')
+         'ff0da0bfc8142a195d242bb5b1609961'
+         '985d6026b4d76b88f0f9fbfd79e4a618')
 
 prepare() {
 #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
@@ -82,7 +84,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
-
+  patch -Np1 -i "${srcdir}/0019-revert-module-Harden-STRICT_MODULE_RWX.patch "
  # Add Beelink Device Support patches
  patch -Np1 -i "${srcdir}/add-beelink-gt-ultimate.patch"
 
