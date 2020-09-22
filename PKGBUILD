@@ -4,11 +4,11 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=a3b78869b6671bcff1b433850c1084d7b7e7501d
+_commit=559ff899dcc29db65c19550d3f60ffbaaff16ee4
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.8.5
+pkgver=5.8.7
 pkgrel=1
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
@@ -35,8 +35,8 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         'add-beelink-gt-ultimate.patch'
         '0019-revert-module-Harden-STRICT_MODULE_RWX.patch'
 )
-md5sums=('6e67df6914950356a4305955237db367'
-         '0abdd7b99370f2491f16cf6ec626cc88'
+md5sums=('67b1fa47a2c206420900b9cbd70d7aa3'
+         '311e1fa0cc687cf5cf6ed9be0bd093f9'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -84,12 +84,12 @@ prepare() {
   patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
-  patch -Np1 -i "${srcdir}/0019-revert-module-Harden-STRICT_MODULE_RWX.patch "
+  patch -Np1 -i "${srcdir}/0019-revert-module-Harden-STRICT_MODULE_RWX.patch"
  # Add Beelink Device Support patches
  patch -Np1 -i "${srcdir}/add-beelink-gt-ultimate.patch"
 
- # make menuconfig
- # cp ./.config "${srcdir}/config"
+  make menuconfig
+  cp ./.config "${srcdir}/config"
 }
 
 build() {
