@@ -86,8 +86,8 @@ prepare() {
  # Add Beelink Device Support patches
  patch -Np1 -i "${srcdir}/add-beelink-gt-ultimate.patch"
 
- make menuconfig
- cp ./.config "${srcdir}/config"
+ #make menuconfig
+ #cp ./.config "${srcdir}/config"
 }
 
 build() {
