@@ -9,7 +9,7 @@ _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
 pkgver=5.9.0
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -32,7 +32,7 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0010-bootsplash.patch'
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
-        'add-beelink-gt-ultimate.patch'
+        'add-beelink-device-and-vim3l.patch'
 )
 md5sums=('c922b63dc13195cb0621e10e3b29942b'
          '5d96c841435e5e356f3d38e05a8906b7'
@@ -51,7 +51,7 @@ md5sums=('c922b63dc13195cb0621e10e3b29942b'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         'ff0da0bfc8142a195d242bb5b1609961')
+         '9acb84c12509a02cf95387a6c7a0c742')
 
 prepare() {
 #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
@@ -84,7 +84,7 @@ prepare() {
  # patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
 
  # Add Beelink Device Support patches
- patch -Np1 -i "${srcdir}/add-beelink-gt-ultimate.patch"
+ patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
 
  #make menuconfig
  #cp ./.config "${srcdir}/config"
