@@ -8,8 +8,8 @@ _commit=75e77159ab99227fa2a0fdb34bf086624914745a
 _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.9.0
-pkgrel=2
+pkgver=5.9.8
+pkgrel=1
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -33,7 +33,7 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
         'add-beelink-device-and-vim3l.patch'
-)
+        "patch-${pkgver}")
 md5sums=('c922b63dc13195cb0621e10e3b29942b'
          '5d96c841435e5e356f3d38e05a8906b7'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
@@ -51,37 +51,41 @@ md5sums=('c922b63dc13195cb0621e10e3b29942b'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         '9acb84c12509a02cf95387a6c7a0c742')
+         '9acb84c12509a02cf95387a6c7a0c742'
+         '4845df36676af78184cf76105ddc31ca')
 
 prepare() {
-#sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
-  cd "${srcdir}/${_srcname}"
+    #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
+    cd "${srcdir}/${_srcname}"
 
-  # Manjaro-ARM patches
-  # Bootsplash patches
+    # add upstream patch
+    patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
-  cat "${srcdir}/config" > ./.config
+    # Manjaro-ARM patches
+    # Bootsplash patches
 
-  # add pkgrel to extraversion
-  sed -ri "s|^(EXTRAVERSION =)(.*)|\1 \2-${pkgrel}|" Makefile
+    cat "${srcdir}/config" > ./.config
 
-  # don't run depmod on 'make install'. We'll do this ourselves in packaging
-  sed -i '2iexit 0' scripts/depmod.sh
+    # add pkgrel to extraversion
+    sed -ri "s|^(EXTRAVERSION =)(.*)|\1 \2-${pkgrel}|" Makefile
+
+    # don't run depmod on 'make install'. We'll do this ourselves in packaging
+    sed -i '2iexit 0' scripts/depmod.sh
   
 
- # Bootsplash patches
- #  patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
- # patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
+    # Bootsplash patches
+    #  patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
+    # patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
 
  # Add Beelink Device Support patches
  patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
