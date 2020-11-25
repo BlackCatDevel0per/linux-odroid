@@ -9,7 +9,7 @@ _srcname=Amlogic_s905-kernel-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
 pkgver=5.9.8
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
 license=('GPL2')
@@ -33,9 +33,10 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0011-bootsplash.patch'
         '0012-bootsplash.patch'
         'add-beelink-device-and-vim3l.patch'
+        's912-dmip-mhz.patch'
         "patch-${pkgver}")
 md5sums=('c922b63dc13195cb0621e10e3b29942b'
-         '5d96c841435e5e356f3d38e05a8906b7'
+         '2ca3cc5457210520a29bfd60306792ac'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -52,6 +53,7 @@ md5sums=('c922b63dc13195cb0621e10e3b29942b'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
          '9acb84c12509a02cf95387a6c7a0c742'
+         'c6ba2bccc888857a6d31c86c2a91d75d'
          '4845df36676af78184cf76105ddc31ca')
 
 prepare() {
@@ -88,10 +90,11 @@ prepare() {
     # patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
 
  # Add Beelink Device Support patches
- patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
+    patch -Np1 -i "${srcdir}/s912-dmip-mhz.patch"
+    patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
 
- #make menuconfig
- #cp ./.config "${srcdir}/config"
+    # make menuconfig
+    # cp ./.config "${srcdir}/config"
 }
 
 build() {
