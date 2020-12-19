@@ -39,17 +39,10 @@ diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/
  dtb-$(CONFIG_ARCH_MESON) += meson-gxm-khadas-vim2.dtb
  dtb-$(CONFIG_ARCH_MESON) += meson-gxm-beelink-gt1.dtb
  dtb-$(CONFIG_ARCH_MESON) += meson-gxm-nexbox-a1.dtb
-@@ -48,5 +51,6 @@
- dtb-$(CONFIG_ARCH_MESON) += meson-gxm-vega-s96.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-gxm-wetek-core2.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-sm1-sei610.dtb
-+dtb-$(CONFIG_ARCH_MESON) += meson-sm1-khadas-vim3l.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-a1-ad401.dtb
-
  
 diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts
---- /dev/null	2020-08-31 20:38:14.035696519 +0300
-+++ b/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts	2020-08-31 20:40:48.171197971 +0300
+--- /dev/null	2020-12-19 21:18:35.942747601 +0300
++++ b/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts	2020-12-19 21:18:35.942747601 +0300
 @@ -0,0 +1,424 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
@@ -285,7 +278,7 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +		reg = <0>;
 +
 +		reset-assert-us = <10000>;
-+		reset-deassert-us = <30000>;
++		reset-deassert-us = <80000>;
 +		reset-gpios = <&gpio GPIOZ_14 GPIO_ACTIVE_LOW>;
 +
 +		interrupt-parent = <&gpio_intc>;
@@ -319,8 +312,7 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +	pinctrl-names = "default";
 +
 +	rtc: rtc@51 {
-+		/* has to be enabled manually when a battery is connected: */
-+		status = "disabled";
++		status = "okay";
 +		compatible = "haoyu,hym8563";
 +		reg = <0x51>;
 +		#clock-cells = <0>;
@@ -432,7 +424,7 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +		#size-cells = <1>;
 +		compatible = "winbond,w25q16", "jedec,spi-nor";
 +		reg = <0>;
-+		spi-max-frequency = <3000000>;
++		spi-max-frequency = <104000000>;
 +	};
 +};
 +
@@ -475,10 +467,11 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +	status = "okay";
 +	dr_mode = "peripheral";
 +};
++ 
 
---- /dev/null	2020-10-03 21:13:06.980000000 +0300
-+++ b/arch/arm64/boot/dts/amlogic/meson-g12b-gtking-pro.dts	2020-11-14 21:41:56.449707831 +0300
-@@ -0,0 +1,142 @@
+--- /dev/null	2020-12-19 21:25:11.755551050 +0300
++++ b/arch/arm64/boot/dts/amlogic/meson-g12b-gtking-pro.dts	    2020-12-19 21:25:11.755551050 +0300
+@@ -0,0 +1,143 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2019 BayLibre, SAS
@@ -496,7 +489,7 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +	model = "Beelink GT-King Pro";
 +
 +	aliases {
-+		rtc0 = &rtc0;
++		rtc0 = &rtc;
 +		rtc1 = &vrtc;
 +	};
 +
@@ -603,7 +596,7 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +	pinctrl-0 = <&i2c3_sda_a_pins>, <&i2c3_sck_a_pins>;
 +	pinctrl-names = "default";
 +
-+	rtc0: @51 {
++	rtc: rtc@51 {
 +		compatible = "nxp,pcf8563";
 +		reg = <0x51>;
 +		wakeup-source;
@@ -621,10 +614,11 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +&tohdmitx {
 +	status = "okay";
 +};
++
 
 --- /dev/null	2020-10-03 21:13:06.980000000 +0300
 +++ b/arch/arm64/boot/dts/amlogic/meson-g12b-gsking-x.dts	2020-11-14 21:40:37.691038445 +0300
-@@ -0,0 +1,133 @@
+@@ -0,0 +1,143 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2019 BayLibre, SAS
@@ -635,7 +629,6 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +/dts-v1/;
 +
 +#include "meson-g12b-w400.dtsi"
-+#include <dt-bindings/leds/common.h>
 +#include <dt-bindings/sound/meson-g12a-tohdmitx.h>
 +
 +/ {
@@ -643,7 +636,7 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +	model = "Beelink GS-King X";
 +
 +	aliases {
-+		rtc0 = &rtc0;
++		rtc0 = &rtc;
 +		rtc1 = &vrtc;
 +	};
 +
@@ -657,6 +650,16 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +			label = "power";
 +			linux,code = <KEY_POWER>;
 +			gpios = <&gpio_ao GPIOAO_3 GPIO_ACTIVE_HIGH>;
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		white {
++			label = "power:white";
++			gpios = <&gpio_ao GPIOAO_11 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
 +		};
 +	};
 +
@@ -740,7 +743,7 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +	pinctrl-0 = <&i2c3_sda_a_pins>, <&i2c3_sck_a_pins>;
 +	pinctrl-names = "default";
 +
-+	rtc0: @51 {
++	rtc: rtc@51 {
 +		compatible = "nxp,pcf8563";
 +		reg = <0x51>;
 +		wakeup-source;
@@ -758,108 +761,4 @@ diff --git a/arch/arm64/boot/dts/amlogic/meson-gxm-gt1-ultimate.dts b/arch/arm64
 +&tohdmitx {
 +	status = "okay";
 +};
-
---- /dev/null	2020-10-03 21:13:06.980000000 +0300
-+++ b/arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l.dts	2020-11-14 21:55:51.565598745 +0300
-@@ -0,0 +1,101 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (c) 2019 BayLibre, SAS
-+ * Author: Neil Armstrong <narmstrong@baylibre.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include "meson-sm1.dtsi"
-+#include "meson-khadas-vim3.dtsi"
-+#include <dt-bindings/sound/meson-g12a-tohdmitx.h>
-+
-+/ {
-+	compatible = "khadas,vim3l", "amlogic,sm1";
-+	model = "Khadas VIM3L";
-+
-+	vddcpu: regulator-vddcpu {
-+		/*
-+		 * Silergy SY8030DEC Regulator.
-+		 */
-+		compatible = "pwm-regulator";
-+
-+		regulator-name = "VDDCPU";
-+		regulator-min-microvolt = <690000>;
-+		regulator-max-microvolt = <1050000>;
-+
-+		vin-supply = <&vsys_3v3>;
-+
-+		pwms = <&pwm_AO_cd 1 1250 0>;
-+		pwm-dutycycle-range = <100 0>;
-+
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+};
-+
-+&cpu0 {
-+	cpu-supply = <&vddcpu>;
-+	operating-points-v2 = <&cpu_opp_table>;
-+	clocks = <&clkc CLKID_CPU_CLK>;
-+	clock-latency = <50000>;
-+};
-+
-+&cpu1 {
-+	cpu-supply = <&vddcpu>;
-+	operating-points-v2 = <&cpu_opp_table>;
-+	clocks = <&clkc CLKID_CPU1_CLK>;
-+	clock-latency = <50000>;
-+};
-+
-+&cpu2 {
-+	cpu-supply = <&vddcpu>;
-+	operating-points-v2 = <&cpu_opp_table>;
-+	clocks = <&clkc CLKID_CPU2_CLK>;
-+	clock-latency = <50000>;
-+};
-+
-+&cpu3 {
-+	cpu-supply = <&vddcpu>;
-+	operating-points-v2 = <&cpu_opp_table>;
-+	clocks = <&clkc CLKID_CPU3_CLK>;
-+	clock-latency = <50000>;
-+};
-+
-+&pwm_AO_cd {
-+	pinctrl-0 = <&pwm_ao_d_e_pins>;
-+	pinctrl-names = "default";
-+	clocks = <&xtal>;
-+	clock-names = "clkin1";
-+	status = "okay";
-+};
-+
-+/*
-+ * The VIM3 on-board  MCU can mux the PCIe/USB3.0 shared differential
-+ * lines using a FUSB340TMX USB 3.1 SuperSpeed Data Switch between
-+ * an USB3.0 Type A connector and a M.2 Key M slot.
-+ * The PHY driving these differential lines is shared between
-+ * the USB3.0 controller and the PCIe Controller, thus only
-+ * a single controller can use it.
-+ * If the MCU is configured to mux the PCIe/USB3.0 differential lines
-+ * to the M.2 Key M slot, uncomment the following block to disable
-+ * USB3.0 from the USB Complex and enable the PCIe controller.
-+ * The End User is not expected to uncomment the following except for
-+ * testing purposes, but instead rely on the firmware/bootloader to
-+ * update these nodes accordingly if PCIe mode is selected by the MCU.
-+ */
-+/*
-+&pcie {
-+	status = "okay";
-+};
-+
-+&sd_emmc_a {
-+	sd-uhs-sdr50;
-+};
-+
-+&usb {
-+	phys = <&usb2_phy0>, <&usb2_phy1>;
-+	phy-names = "usb2-phy0", "usb2-phy1";
-+};
-+ */
 +

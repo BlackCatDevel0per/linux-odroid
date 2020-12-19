@@ -4,18 +4,18 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=75e77159ab99227fa2a0fdb34bf086624914745a
-_srcname=Amlogic_s905-kernel-${_commit}
+_commit=5587c3c2592f0578e31b005201631c5f91aac544
+_srcname=linux-arm-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.9.8
-pkgrel=2
+pkgver=5.10.1
+pkgrel=1
 arch=('aarch64')
-url="https://github.com/150balbes/Amlogic_s905-kernel/tree/master"
+url="https://github.com/150balbes/linux-arm/tree/master"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
 options=('!strip')
-source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar.gz"
+source=("https://github.com/150balbes/linux-arm/archive/${_commit}.tar.gz"
         'config'
         'linux.preset'
         '60-linux.hook'
@@ -34,9 +34,9 @@ source=("https://github.com/150balbes/Amlogic_s905-kernel/archive/${_commit}.tar
         '0012-bootsplash.patch'
         'add-beelink-device-and-vim3l.patch'
         's912-dmip-mhz.patch'
-        "patch-${pkgver}")
-md5sums=('c922b63dc13195cb0621e10e3b29942b'
-         '2ca3cc5457210520a29bfd60306792ac'
+        'add-sm1-support.patch')
+md5sums=('75f9d1a09a67d90dfac96e8f0a775f85'
+         'a9e3520ce7c9c4a5a458507b295a2c1a'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -52,16 +52,16 @@ md5sums=('c922b63dc13195cb0621e10e3b29942b'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         '9acb84c12509a02cf95387a6c7a0c742'
+         'b18cac0b943a9c6181fbe3a64f35e9c3'
          'c6ba2bccc888857a6d31c86c2a91d75d'
-         '4845df36676af78184cf76105ddc31ca')
+         '6d9a93939c87b0bb0a717382524de98f')
 
 prepare() {
     #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
     cd "${srcdir}/${_srcname}"
 
     # add upstream patch
-    patch -Np1 -i "${srcdir}/patch-${pkgver}"
+    #patch -Np1 -i "${srcdir}/patch-${pkgver}"
 
     # Manjaro-ARM patches
     # Bootsplash patches
@@ -92,9 +92,10 @@ prepare() {
  # Add Beelink Device Support patches
     patch -Np1 -i "${srcdir}/s912-dmip-mhz.patch"
     patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
+    patch -Np1 -i "${srcdir}/add-sm1-support.patch"
 
-    # make menuconfig
-    # cp ./.config "${srcdir}/config"
+     #make menuconfig
+     #cp ./.config "${srcdir}/config"
 }
 
 build() {
