@@ -9,7 +9,7 @@ _srcname=linux-arm-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
 pkgver=5.10.1
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="https://github.com/150balbes/linux-arm/tree/master"
 license=('GPL2')
@@ -34,7 +34,8 @@ source=("https://github.com/150balbes/linux-arm/archive/${_commit}.tar.gz"
         '0012-bootsplash.patch'
         'add-beelink-device-and-vim3l.patch'
         's912-dmip-mhz.patch'
-        'add-sm1-support.patch')
+        'add-sm1-support.patch'
+        'add-ugoos-device.patch')
 md5sums=('75f9d1a09a67d90dfac96e8f0a775f85'
          'a9e3520ce7c9c4a5a458507b295a2c1a'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
@@ -54,7 +55,8 @@ md5sums=('75f9d1a09a67d90dfac96e8f0a775f85'
          'ecfd8a30c480149005fcf349e4d06f4b'
          'b18cac0b943a9c6181fbe3a64f35e9c3'
          'c6ba2bccc888857a6d31c86c2a91d75d'
-         '6d9a93939c87b0bb0a717382524de98f')
+         '6d9a93939c87b0bb0a717382524de98f'
+         'df2c4cd83a6bcb99be2eb98e1c96bd20')
 
 prepare() {
     #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
@@ -93,7 +95,7 @@ prepare() {
     patch -Np1 -i "${srcdir}/s912-dmip-mhz.patch"
     patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
     patch -Np1 -i "${srcdir}/add-sm1-support.patch"
-
+    patch -Np1 -i "${srcdir}/add-ugoos-device.patch"
      #make menuconfig
      #cp ./.config "${srcdir}/config"
 }
@@ -203,7 +205,8 @@ _package-headers() {
   cp -t "${_builddir}" -a include scripts
 
   install -Dt "${_builddir}/arch/${KARCH}" -m644 arch/${KARCH}/Makefile
-  install -Dt "${_builddir}/arch/${KARCH}/kernel" -m644 arch/${KARCH}/kernel/asm-offsets.s arch/$KARCH/kernel/module.lds
+  install -Dt "${_builddir}/arch/${KARCH}/kernel" -m644 arch/${KARCH}/kernel/asm-offsets.s 
+  #arch/$KARCH/kernel/module.lds
 
   cp -t "${_builddir}/arch/${KARCH}" -a arch/${KARCH}/include
 
