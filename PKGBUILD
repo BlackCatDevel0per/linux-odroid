@@ -4,12 +4,12 @@
 # Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=5587c3c2592f0578e31b005201631c5f91aac544
+_commit=72a37a0c7cc4329b1e2b9f43968cf58bfc6eba76
 _srcname=linux-arm-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.10.1
-pkgrel=2
+pkgver=5.10.8
+pkgrel=1
 arch=('aarch64')
 url="https://github.com/150balbes/linux-arm/tree/master"
 license=('GPL2')
@@ -35,9 +35,10 @@ source=("https://github.com/150balbes/linux-arm/archive/${_commit}.tar.gz"
         'add-beelink-device-and-vim3l.patch'
         's912-dmip-mhz.patch'
         'add-sm1-support.patch'
-        'add-ugoos-device.patch')
-md5sums=('75f9d1a09a67d90dfac96e8f0a775f85'
-         'a9e3520ce7c9c4a5a458507b295a2c1a'
+        'add-ugoos-device.patch'
+        'fix-g12-hdmi.patch')
+md5sums=('49e82690f9d00730fa790319ae847939'
+         '2ff6a3441077eb010453480e1539a35d'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -53,10 +54,11 @@ md5sums=('75f9d1a09a67d90dfac96e8f0a775f85'
          '1922e3a7727d2bf51641b98d6d354738'
          'd6b7e4e43e42128cf950251e0d0aee23'
          'ecfd8a30c480149005fcf349e4d06f4b'
-         'b18cac0b943a9c6181fbe3a64f35e9c3'
+         'ae4ca58ddc4cc3636835ab24c8457fa3'
          'c6ba2bccc888857a6d31c86c2a91d75d'
          '6d9a93939c87b0bb0a717382524de98f'
-         'df2c4cd83a6bcb99be2eb98e1c96bd20')
+         '1b92d7617e60d3c525a4b18ab4351185'
+         '469417b64e6a2bf65bd74c6d9cad2040')
 
 prepare() {
     #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
@@ -96,8 +98,9 @@ prepare() {
     patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
     patch -Np1 -i "${srcdir}/add-sm1-support.patch"
     patch -Np1 -i "${srcdir}/add-ugoos-device.patch"
-     #make menuconfig
-     #cp ./.config "${srcdir}/config"
+    patch -Np1 -i "${srcdir}/fix-g12-hdmi.patch"
+    #make menuconfig
+    #cp ./.config "${srcdir}/config"
 }
 
 build() {

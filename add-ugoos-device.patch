@@ -40,7 +40,7 @@ diff --git /dev/null b/arch/arm64/boot/dts/amlogic/meson-g12b-ugoos-am6-plus.dts
 +
 +	sound {
 +		compatible = "amlogic,axg-sound-card";
-+		model = "G12B-UGOOS-AM6-PLUS";
++		model = "AM6-PLUS";
 +		audio-aux-devs = <&tdmout_b>;
 +		audio-routing = "TDMOUT_B IN 0", "FRDDR_A OUT 1",
 +				"TDMOUT_B IN 1", "FRDDR_B OUT 1",
