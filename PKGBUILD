@@ -23,7 +23,7 @@ source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
         's912-dmip-mhz.patch'
         'add-ugoos-device.patch')		
 md5sums=('9e618cbdb49f174391f35f68bdd37751'
-         'c87b7f510e02fa81a18ece34ef09a18a'
+         '4d1daf35ab965eea93d1170bcbd81eb4'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
