@@ -1,64 +1,35 @@
 # Amlogic
-# Original Creator: Oleg Ivanov (150balbes) <balbes-150@yandex.ru>
+# Original Creator: Tobetter
 # Contributor: Spikerguy <shareahack@hotmail.com>
-# Maintainer: Dan Johansen <strit@manjaro.org>
 
 pkgbase=linux-vim
-_commit=72a37a0c7cc4329b1e2b9f43968cf58bfc6eba76
-_srcname=linux-arm-${_commit}
+_commit=317495e56fb0aeeae4d2dc44adcc202b75ca1643
+_srcname=linux-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Khadas Vim Devices"
-pkgver=5.10.8
+pkgver=5.11.2
 pkgrel=1
 arch=('aarch64')
-url="https://github.com/150balbes/linux-arm/tree/master"
+url="https://github.com/tobetter/linux/tree/odroid-5.11.y"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
 options=('!strip')
-source=("https://github.com/150balbes/linux-arm/archive/${_commit}.tar.gz"
+source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
         'config'
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook'
-        '0001-bootsplash.patch'
-        '0002-bootsplash.patch'
-        '0003-bootsplash.patch'
-        '0004-bootsplash.patch'
-        '0005-bootsplash.patch'
-        '0006-bootsplash.patch'
-        '0007-bootsplash.patch'
-        '0008-bootsplash.patch'
-        '0009-bootsplash.patch'
-        '0010-bootsplash.patch'
-        '0011-bootsplash.patch'
-        '0012-bootsplash.patch'
         'add-beelink-device-and-vim3l.patch'
         's912-dmip-mhz.patch'
-        'add-sm1-support.patch'
-        'add-ugoos-device.patch'
-        'fix-g12-hdmi.patch')
-md5sums=('49e82690f9d00730fa790319ae847939'
-         '2ff6a3441077eb010453480e1539a35d'
+        'add-ugoos-device.patch')		
+md5sums=('9e618cbdb49f174391f35f68bdd37751'
+         'c87b7f510e02fa81a18ece34ef09a18a'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
-         'f13cfcd8a4667ecca68bccefee4b8283'
-         'b4acd66a564af83b5409738c40b4a566'
-         'a6407dceae1838f5aa27450401a91be6'
-         'cb78b1c11b917a4d31c4b1567183b76f'
-         '3efea575da7f02ba94789d3b6b81e11f'
-         '2529ad13791b259d80c9d5d702187a65'
-         'efd2367798cc4eab0e15fc0ae44fb003'
-         '50255aac36e002afa477e4527a0550af'
-         '6b6def41b404422dc04b39e2f1adffc8'
-         '1922e3a7727d2bf51641b98d6d354738'
-         'd6b7e4e43e42128cf950251e0d0aee23'
-         'ecfd8a30c480149005fcf349e4d06f4b'
-         'ae4ca58ddc4cc3636835ab24c8457fa3'
-         'c6ba2bccc888857a6d31c86c2a91d75d'
-         '6d9a93939c87b0bb0a717382524de98f'
-         '1b92d7617e60d3c525a4b18ab4351185'
-         '469417b64e6a2bf65bd74c6d9cad2040')
+         '5c436c914a9f45cebb4db75824fc2dfa'
+         '65152b6703a4851ea8e8a03240edc4b6'
+         '1b92d7617e60d3c525a4b18ab4351185')
 
 prepare() {
     #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
@@ -78,27 +49,10 @@ prepare() {
     # don't run depmod on 'make install'. We'll do this ourselves in packaging
     sed -i '2iexit 0' scripts/depmod.sh
   
-
-    # Bootsplash patches
-    #  patch -Np1 -i "${srcdir}/0001-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0002-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0003-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0004-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0005-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0006-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0007-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0008-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0009-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
-    # patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
-
  # Add Beelink Device Support patches
     patch -Np1 -i "${srcdir}/s912-dmip-mhz.patch"
     patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
-    patch -Np1 -i "${srcdir}/add-sm1-support.patch"
     patch -Np1 -i "${srcdir}/add-ugoos-device.patch"
-    patch -Np1 -i "${srcdir}/fix-g12-hdmi.patch"
     #make menuconfig
     #cp ./.config "${srcdir}/config"
 }
