@@ -1,13 +1,13 @@
 # Amlogic
-# Original Creator: Tobetter
+# Kernel Source Maintainer: Tobetter
 # Contributor: Spikerguy <shareahack@hotmail.com>
 
 pkgbase=linux-vim
-_commit=317495e56fb0aeeae4d2dc44adcc202b75ca1643
+_commit=1c288a6bc936593bfab156d51c65cacd0adce53a
 _srcname=linux-${_commit}
 _kernelname=${pkgbase#linux}
-_desc="Kernel for Khadas Vim Devices"
-pkgver=5.11.2
+_desc="Kernel for Amlogic Devices"
+pkgver=5.11.7
 pkgrel=1
 arch=('aarch64')
 url="https://github.com/tobetter/linux/tree/odroid-5.11.y"
@@ -22,8 +22,8 @@ source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
         'add-beelink-device-and-vim3l.patch'
         's912-dmip-mhz.patch'
         'add-ugoos-device.patch')		
-md5sums=('9e618cbdb49f174391f35f68bdd37751'
-         '4d1daf35ab965eea93d1170bcbd81eb4'
+md5sums=('88fcfdf5f0c6c10c2171b4bf65b07a53'
+         'f8a453c0da82ac7b1a7aa4a2e3e117b3'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -53,8 +53,8 @@ prepare() {
     patch -Np1 -i "${srcdir}/s912-dmip-mhz.patch"
     patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
     patch -Np1 -i "${srcdir}/add-ugoos-device.patch"
-    #make menuconfig
-    #cp ./.config "${srcdir}/config"
+    make menuconfig
+    cp ./.config "${srcdir}/config"
 }
 
 build() {
