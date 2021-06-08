@@ -22,8 +22,8 @@ source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
         'add-beelink-device-and-vim3l.patch'
         's912-dmip-mhz.patch'
         'add-ugoos-device.patch')		
-md5sums=('97d2ac29d0dafeee881139ceb1880ae1'
-         'beb74d9e5778701eaf34b74e5633c825'
+md5sums=('27901e8487ec4b652291da5d2e3bc1b2'
+         '5749bdb45d3c493d660274ae13d7e870'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
@@ -53,8 +53,8 @@ prepare() {
     patch -Np1 -i "${srcdir}/s912-dmip-mhz.patch"
     patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
     patch -Np1 -i "${srcdir}/add-ugoos-device.patch"
-    # make menuconfig
-    # cp ./.config "${srcdir}/config"
+    #make menuconfig
+    #cp ./.config "${srcdir}/config"
 }
 
 build() {
