@@ -1,6 +1,6 @@
 package:
   tags:
-    - spikerguy-honeycomb
+    - aarch64
   script:
     - export PKG=${PWD##*/}
     - cd ..
