@@ -53,8 +53,8 @@ prepare() {
     patch -Np1 -i "${srcdir}/s912-dmip-mhz.patch"
     patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
     patch -Np1 -i "${srcdir}/add-ugoos-device.patch"
-    make menuconfig
-    cp ./.config "${srcdir}/config"
+    #make menuconfig
+    #cp ./.config "${srcdir}/config"
 }
 
 build() {
