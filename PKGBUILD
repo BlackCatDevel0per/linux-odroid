@@ -3,14 +3,14 @@
 # Contributor: Spikerguy <shareahack@hotmail.com>
 
 pkgbase=linux-vim
-_commit=710bf4eba39225487edc126ffcca61ee80b80631
+_commit=6f09aa324f0de19137dd3b1dd40a0bd0769fa10a
 _srcname=linux-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Amlogic Devices"
-pkgver=5.13.0
+pkgver=5.13.5
 pkgrel=1
 arch=('aarch64')
-url="https://github.com/tobetter/linux/tree/odroid-5.12.y"
+url="https://github.com/tobetter/linux/tree/odroid-5.13.y"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
 options=('!strip')
@@ -22,8 +22,8 @@ source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
         'add-beelink-device-and-vim3l.patch'
         's912-dmip-mhz.patch'
         'add-ugoos-device.patch')		
-md5sums=('45b2836c9e084e20d9617d693ad78b96'
-         'f945478c289a641e65ae05eb28c0242e'
+md5sums=('5e45865537858809a3b2a3c747a5d9df'
+         '2b2cd7264e8252945cf7b56acecda5bd'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77'
