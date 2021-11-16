@@ -2,34 +2,29 @@
 # Kernel Source Maintainer: Tobetter
 # Contributor: Spikerguy <shareahack@hotmail.com>
 
-pkgbase=linux-vim
-_commit=86e87b3a4adfcdb30c62ff22251dd98ae4e139e9
+pkgbase=linux-odroid
+_commit=c44b1eb837e5a211ecdd5d89af0c077dbe42285e
 _srcname=linux-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Amlogic Devices"
-pkgver=5.14.10
+pkgver=5.15.2
 pkgrel=1
 arch=('aarch64')
-url="https://github.com/tobetter/linux/tree/odroid-5.14.y"
+url="https://github.com/tobetter/linux/tree/odroid-5.15.y"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
 options=('!strip')
+replaces=('linux-vim')
 source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
         'config'
         'linux.preset'
         '60-linux.hook'
-        '90-linux.hook'
-        'add-beelink-device-and-vim3l.patch'
-        's912-dmip-mhz.patch'
-        'add-ugoos-device.patch')		
-md5sums=('76f022f77e87b3a392454bdb93e78197'
-         'aa0e3f9bb6379f0fd9ac07415e5e7496'
+        '90-linux.hook')
+md5sums=('194e4a587a6bb45ef24458aabb1947b6'
+         '8d46eeb5cde64105e3958b49eb4d2d16'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
-         '3dc88030a8f2f5a5f97266d99b149f77'
-         '576558e334451596d634fc10bb3b91ee'
-         '65152b6703a4851ea8e8a03240edc4b6'
-         '1b92d7617e60d3c525a4b18ab4351185')
+         '3dc88030a8f2f5a5f97266d99b149f77')
 
 prepare() {
     #sed -i s/'EXTRAVERSION = -rc7'/'EXTRAVERSION ='/ "${_srcname}"/Makefile
@@ -49,12 +44,8 @@ prepare() {
     # don't run depmod on 'make install'. We'll do this ourselves in packaging
     sed -i '2iexit 0' scripts/depmod.sh
   
- # Add Beelink Device Support patches
-    patch -Np1 -i "${srcdir}/s912-dmip-mhz.patch"
-    patch -Np1 -i "${srcdir}/add-beelink-device-and-vim3l.patch"
-    patch -Np1 -i "${srcdir}/add-ugoos-device.patch"
-    #make menuconfig
-    #cp ./.config "${srcdir}/config"
+    make menuconfig
+    cp ./.config "${srcdir}/config"
 }
 
 build() {
