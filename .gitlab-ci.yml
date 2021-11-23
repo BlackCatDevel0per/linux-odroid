@@ -3,8 +3,6 @@ package:
     - aarch64
     - spikerguy-honeycomb
     - bigbuilds
-    - fosshost
-    - xlarge
   script:
     - export PKG=${PWD##*/}
     - cd ..
