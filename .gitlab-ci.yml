@@ -1,6 +1,7 @@
 package:
   tags:
     - aarch64
+    - spikerguy-honeycomb
     - bigbuilds
     - fosshost
     - xlarge
