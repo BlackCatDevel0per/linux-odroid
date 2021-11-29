@@ -3,11 +3,11 @@
 # Contributor: Spikerguy <shareahack@hotmail.com>
 
 pkgbase=linux-odroid
-_commit=50dccb89dfc43cd3a8344d528555b588b80e6e2d
+_commit=31b3089969f700a8f6d8833b66ca89e104ba01ee
 _srcname=linux-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Amlogic Devices"
-pkgver=5.15.3
+pkgver=5.15.5
 pkgrel=1
 arch=('aarch64')
 url="https://github.com/tobetter/linux/tree/odroid-5.15.y"
@@ -20,8 +20,8 @@ source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('0f6ebdb88038f9bdfe37411fa6ed2d63'
-         'c4c15b5337db93638aa77a9c5d7f1588'
+md5sums=('e95bd1012768eb88d4b8407429ef46cb'
+         '844ce82d6469991735be0afa43884d01'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
