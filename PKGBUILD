@@ -3,12 +3,12 @@
 # Contributor: Spikerguy <shareahack@hotmail.com>
 
 pkgbase=linux-odroid
-_commit=8c930281633280a6f6b69537cdeecb8d2949b157
+_commit=b81399f9c6f4c6ed93f2fd2180680c2bb2b8f3b1
 _srcname=linux-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Amlogic Devices"
 pkgver=5.16.4
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="https://github.com/tobetter/linux/tree/odroid-5.16.y"
 license=('GPL2')
@@ -20,7 +20,7 @@ source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('976075dadbe38bdf8b2d6d86bfd4aa86'
+md5sums=('be49d7957572fcd8ad067238831b59b9'
          'c09b128a677b02bc6baa0dc6e61c1707'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
