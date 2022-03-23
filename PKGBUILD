@@ -3,12 +3,12 @@
 # Contributor: Spikerguy <shareahack@hotmail.com>
 
 pkgbase=linux-odroid
-_commit=b81399f9c6f4c6ed93f2fd2180680c2bb2b8f3b1
+_commit=9aed648340400df7f403d41d8558244afd6d69d3
 _srcname=linux-${_commit}
 _kernelname=${pkgbase#linux}
 _desc="Kernel for Amlogic Devices"
-pkgver=5.16.4
-pkgrel=3
+pkgver=5.16.16
+pkgrel=1
 arch=('aarch64')
 url="https://github.com/tobetter/linux/tree/odroid-5.16.y"
 license=('GPL2')
@@ -16,11 +16,13 @@ makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
 options=('!strip')
 replaces=('linux-vim')
 source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
-        'config'
+        'https://gitlab.manjaro.org/manjaro-arm/packages/core/linux-khadas/-/raw/master/0065-add-ugoos-device.patch'
+	'config'
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('be49d7957572fcd8ad067238831b59b9'
+md5sums=('90e850b82f9c5d5b7acf7f3cd852db48'
+         '1b92d7617e60d3c525a4b18ab4351185'
          'c09b128a677b02bc6baa0dc6e61c1707'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
@@ -32,6 +34,7 @@ prepare() {
 
     # add upstream patch
     #patch -Np1 -i "${srcdir}/patch-${pkgver}"
+    patch -Np1 -i "${srcdir}/0065-add-ugoos-device.patch"
 
     # Manjaro-ARM patches
     # Bootsplash patches
