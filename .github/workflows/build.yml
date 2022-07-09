@@ -59,6 +59,7 @@ jobs:
           run: |
             useradd -m -G wheel -s /bin/bash user
             sudo chown -R user .
+            echo $PWD
             echo 123 > file.tar.zst
             #sudo -u user makepkg
             sudo cp -rf "*.tar.zst" "/artifacts/${artifact_name}"
