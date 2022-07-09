@@ -60,10 +60,10 @@ jobs:
             useradd -m -G wheel -s /bin/bash user
             sudo chown -R user .
             echo $PWD
-            ls -l $PWD
-            echo 123 > $PWD/file.tar.zst
+            ls -l
+            echo 123 > file.tar.zst
             #sudo -u user makepkg
-            sudo cp -rf $PWD/*.tar.zst "/artifacts/${artifact_name}"
+            sudo cp -rf *.tar.zst "/artifacts/${artifact_name}"
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
 
@@ -74,7 +74,7 @@ jobs:
         #run: |
         #  ls -al "${PWD}/artifacts"
         with:
-          artifacts: "artifacts/*.tar.zst"
+          artifacts: artifacts/*.tar.zst
           bodyFile: "README.md"
           draft: false
           prerelease: false
