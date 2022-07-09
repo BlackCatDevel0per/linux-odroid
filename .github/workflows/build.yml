@@ -57,7 +57,8 @@ jobs:
           # Produce a binary artifact and place it in the mounted volume
           run: |
             useradd -m -G wheel -s /bin/bash user
-            sudo -u user makepkg
+            #sudo -u user makepkg
+            echo 123 > 4
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
 
@@ -65,4 +66,4 @@ jobs:
         # Items placed in /artifacts in the container will be in
         # ${PWD}/artifacts on the host.
         run: |
-          ls -al "${PWD}/artifacts"
+          ls -al "${PWD}/artifacts/git-archarm_latest_aarch64"
