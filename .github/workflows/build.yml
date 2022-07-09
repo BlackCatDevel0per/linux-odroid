@@ -1,7 +1,4 @@
-on:  
-  push:
-    branches:
-      - master
+on: [push, pull_request]
 
 jobs:
   build_job:
@@ -18,6 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2.1.0
+      fetch-depth: 0
       # run on arch
       - uses: uraimo/run-on-arch-action@v2
         name: Build artifact
