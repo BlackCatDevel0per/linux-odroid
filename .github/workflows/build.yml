@@ -1,0 +1,18 @@
+name: Build kernel
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Arch Linux package
+        uses: FFY00/build-arch-package@v1
+        with:
+          PKGBUILD: PKGBUILD
+          OUTDIR: $HOME/linux-odroid-kernel
