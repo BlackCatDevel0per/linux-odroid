@@ -60,6 +60,7 @@ jobs:
             sudo chown -R user .
             #sudo -u user makepkg
             echo 123 > 4
+            ls -l
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
 
