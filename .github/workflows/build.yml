@@ -7,10 +7,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: uraimo/run-on-arch-action@v2
-        id: runmakepkg
         with:
-          architecture: aarch64
-          distribution: ubuntu18.04
+          arch: aarch64
+          distro: ubuntu18.04
           shell: /bin/sh
           install: |
             pacman -Syyu --noconfirm
