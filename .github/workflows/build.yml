@@ -60,7 +60,7 @@ jobs:
             useradd -m -G wheel -s /bin/bash user
             sudo chown -R user .
             echo $PWD
-            ls -l
+            ls -l $PWD
             echo 123 > $PWD/file.tar.zst
             #sudo -u user makepkg
             sudo cp -rf "*.tar.zst" "/artifacts/${artifact_name}"
