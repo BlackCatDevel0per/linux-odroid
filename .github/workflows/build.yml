@@ -63,13 +63,14 @@ jobs:
                 ;;
               archarm*)
                 pacman -Syyu --noconfirm
-                pacman -S git which --noconfirm
+                pacman -S git which makepkg --noconfirm
             esac
 
           # Produce a binary artifact and place it in the mounted volume
           run: |
-            cp $(which git) "/artifacts/${artifact_name}"
-            echo "Produced artifact at /artifacts/${artifact_name}"
+            makepkg
+            # cp $(which git) "/artifacts/${artifact_name}"
+            # echo "Produced artifact at /artifacts/${artifact_name}"
 
       - name: Show the artifact
         # Items placed in /artifacts in the container will be in
