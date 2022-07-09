@@ -72,8 +72,6 @@ jobs:
         #run: |
         #  ls -al "${PWD}/artifacts"
         with:
-          #
-          fetch-depth: 0
           artifacts: "artifacts/*.tar.zst"
           bodyFile: "README.md"
           tag_name: ${{ github.ref }}
