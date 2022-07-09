@@ -17,8 +17,6 @@ jobs:
       - uses: actions/checkout@v2.1.0
       # run on arch
       - uses: uraimo/run-on-arch-action@v2
-      # release
-      - uses: ncipollo/release-action@v1
         name: Build artifact
         id: build
         with:
@@ -72,6 +70,9 @@ jobs:
         # ${PWD}/artifacts on the host.
         #run: |
         #  ls -al "${PWD}/artifacts"
-        artifacts: "artifacts/*.tar.zst"
-        bodyFile: "README.md"
-        token: ${{ secrets.GIT_TK }}
+      # release
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "artifacts/*.tar.zst"
+          bodyFile: "README.md"
+          token: ${{ secrets.GIT_TK }}
