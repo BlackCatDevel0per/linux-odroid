@@ -7,6 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: uraimo/run-on-arch-action@v2
+        id: runcmd
         with:
           arch: aarch64
           distro: ubuntu18.04
@@ -15,6 +16,6 @@ jobs:
             pacman -Syyu --noconfirm
             pacman -S git which --noconfirm
             pacman -S makepkg
-          build:
+          run:
             makepkg
 
