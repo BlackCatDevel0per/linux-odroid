@@ -50,7 +50,7 @@ jobs:
             case "${{ matrix.distro }}" in
               archarm*)
                 pacman -Syyuu --noconfirm
-                pacman -S git which makepkg --noconfirm
+                pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda --noconfirm
                 ;;
             esac
 
