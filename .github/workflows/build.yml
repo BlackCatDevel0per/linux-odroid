@@ -65,13 +65,12 @@ jobs:
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
 
-      - name: Show and upload the artifact
+      - uses: ncipollo/release-action@v1
+        name: Show and upload the artifact
         # Items placed in /artifacts in the container will be in
         # ${PWD}/artifacts on the host.
         #run: |
         #  ls -al "${PWD}/artifacts"
-      # release
-      - uses: ncipollo/release-action@v1
         with:
           artifacts: "artifacts/*.tar.zst"
           bodyFile: "README.md"
