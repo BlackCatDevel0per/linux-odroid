@@ -74,8 +74,8 @@ jobs:
         with:
           artifacts: "artifacts/*.tar.zst"
           bodyFile: "README.md"
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: dev_v1
+          release_name: dev_v1
           draft: false
           prerelease: false
           token: ${{ secrets.GIT_TK }}
