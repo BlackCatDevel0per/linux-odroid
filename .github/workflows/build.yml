@@ -6,9 +6,9 @@ jobs:
     name: Run on aarch64
     steps:
       - uses: actions/checkout@v1.0.0
+      - uses: FFY00/build-arch-package@v1
       - uses: uraimo/run-on-arch-action@v1.0.8
         id: runmakepkg
-        - uses: FFY00/build-arch-package@v1
         with:
           architecture: aarch64
           distribution: ubuntu18.04
