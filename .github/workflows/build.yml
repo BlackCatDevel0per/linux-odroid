@@ -60,8 +60,8 @@ jobs:
             useradd -m -G wheel -s /bin/bash user
             sudo chown -R user .
             echo 123 > file.tar.zst
-            #ylsudo -u user makepkg
-            #sudo cp -rf "*.tar.zst" "/artifacts/${artifact_name}"
+            #sudo -u user makepkg
+            sudo cp -rf "*.tar.zst" "/artifacts/${artifact_name}"
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
 
@@ -74,8 +74,6 @@ jobs:
         with:
           artifacts: "artifacts/*.tar.zst"
           bodyFile: "README.md"
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
           draft: false
           prerelease: false
           token: ${{ secrets.GIT_TK }}
