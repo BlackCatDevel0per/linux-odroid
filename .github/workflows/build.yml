@@ -22,7 +22,6 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           distro: ${{ matrix.distro }}
-          fetch-depth: 0
 
           # Not required, but speeds up builds
           githubToken: ${{ github.token }}
@@ -73,6 +72,7 @@ jobs:
         #run: |
         #  ls -al "${PWD}/artifacts"
         with:
+          fetch-depth: 0
           artifacts: "artifacts/*.tar.zst"
           bodyFile: "README.md"
           tag_name: ${{ github.ref }}
