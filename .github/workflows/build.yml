@@ -61,9 +61,9 @@ jobs:
             sudo chown -R user .
             echo $PWD
             ls -l
-            echo 123 > file.tar.zst
+            echo 123 > $PWD/file.tar.zst
             #sudo -u user makepkg
-            sudo cp -rf *.tar.zst "/artifacts/${artifact_name}"
+            sudo cp -rf $PWD/*.tar.zst "/artifacts/${artifact_name}"
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
 
@@ -72,10 +72,11 @@ jobs:
         # Items placed in /artifacts in the container will be in
         # ${PWD}/artifacts on the host.
         #run: |
-        #  ls -al "${PWD}/artifacts"
+          #  ls -al "${PWD}/artifacts"
         with:
-          artifacts: artifacts/*.tar.zst
+          artifacts: $PWD/artifacts
           bodyFile: "README.md"
           draft: false
           prerelease: false
           token: ${{ secrets.GIT_TK }}
+
