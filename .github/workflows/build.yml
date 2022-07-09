@@ -66,17 +66,22 @@ jobs:
             sudo cp -rf $PWD/*.tar.zst "/artifacts/${artifact_name}"
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
-
-      - uses: ncipollo/release-action@v1
-        name: Show and upload the artifact
-        # Items placed in /artifacts in the container will be in
-        # ${PWD}/artifacts on the host.
-        #run: |
-          #  ls -al "${PWD}/artifacts"
-        with:
-          artifacts: $PWD/artifacts
-          bodyFile: "README.md"
-          draft: false
-          prerelease: false
-          token: ${{ secrets.GIT_TK }}
+  release_job:
+    runs-on: ubuntu-18.04
+    name: release
+    needs: [build_job]
+      #name: Show and upload the artifact
+      # Items placed in /artifacts in the container will be in
+      # ${PWD}/artifacts on the host.
+      #run: |
+        #  ls -al "${PWD}/artifacts"
+      steps:
+        - uses: actions/checkout@v2.1.0
+        - uses: ncipollo/release-action@v1
+          with:
+            artifacts: $PWD/artifacts
+            bodyFile: "README.md"
+            draft: false
+            prerelease: false
+            token: ${{ secrets.GIT_TK }}
 
