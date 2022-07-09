@@ -15,7 +15,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2.1.0
+      # run on arch
       - uses: uraimo/run-on-arch-action@v2
+      # release
+      - uses: ncipollo/release-action@v1
         name: Build artifact
         id: build
         with:
@@ -58,14 +61,17 @@ jobs:
           run: |
             useradd -m -G wheel -s /bin/bash user
             sudo chown -R user .
-            #sudo -u user makepkg
-            echo 123 > 4
-            ls -l
+            echo 123 > file.tar.zst
+            #ylsudo -u user makepkg
+            #sudo cp -rf "*.tar.zst" "/artifacts/${artifact_name}"
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
 
-      - name: Show the artifact
+      - name: Show and upload the artifact
         # Items placed in /artifacts in the container will be in
         # ${PWD}/artifacts on the host.
-        run: |
-          ls -al "${PWD}/artifacts"
+        #run: |
+        #  ls -al "${PWD}/artifacts"
+        artifacts: "artifacts/*.tar.zst"
+        bodyFile: "README.md"
+        token: ${{ secrets.GIT_TK }}
