@@ -9,11 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: uraimo/run-on-arch-action@v1.0.8
-      - name: Build Arch Linux package
       id: runcmd
         with:
           architecture: aarch64
-          distribution: ubuntu18.04
+          distribution: ubuntu-latest
           run: |
             uname -a
             echo ::set-output name=uname::$(uname -a)
