@@ -1,4 +1,7 @@
-on: [push, pull_request]
+on:  
+  push:
+    branches:
+      - master
 
 jobs:
   build_job:
@@ -74,8 +77,8 @@ jobs:
         with:
           artifacts: "artifacts/*.tar.zst"
           bodyFile: "README.md"
-          tag_name: dev_v1
-          release_name: dev_v1
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
           draft: false
           prerelease: false
           token: ${{ secrets.GIT_TK }}
