@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   aarch64_job:
     runs-on: ubuntu-18.04
-    name: Run on aarch64
+    name: Build on aarch64
     steps:
       - uses: actions/checkout@v1.0.0
       - uses: uraimo/run-on-arch-action@v1.0.8
@@ -12,5 +12,6 @@ jobs:
           architecture: aarch64
           distribution: ubuntu18.04
           run: |
+            pacman -S makepkg
             makepkg
 
