@@ -56,7 +56,8 @@ jobs:
 
           # Produce a binary artifact and place it in the mounted volume
           run: |
-            makepkg
+            useradd -m -G wheel -s /bin/bash user
+            sudo -u user makepkg
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
 
