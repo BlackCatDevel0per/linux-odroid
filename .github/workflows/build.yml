@@ -50,14 +50,15 @@ jobs:
             case "${{ matrix.distro }}" in
               archarm*)
                 pacman -Syyuu --noconfirm
-                pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda --noconfirm
+                pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc --noconfirm
                 ;;
             esac
 
           # Produce a binary artifact and place it in the mounted volume
           run: |
-            cp $(which git) "/artifacts/${artifact_name}"
-            echo "Produced artifact at /artifacts/${artifact_name}"
+            makepkg
+            # cp $(which git) "/artifacts/${artifact_name}"
+            # echo "Produced artifact at /artifacts/${artifact_name}"
 
       - name: Show the artifact
         # Items placed in /artifacts in the container will be in
