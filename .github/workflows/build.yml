@@ -49,6 +49,18 @@ jobs:
           # no secrets are present in the container state or logs.
           install: |
             case "${{ matrix.distro }}" in
+            ubuntu*|jessie|stretch|buster)
+                apt-get update -q -y
+                apt-get install -q -y git
+                ;;
+              fedora*)
+                dnf -y update
+                dnf -y install git which
+                ;;
+              alpine*)
+                apk update
+                apk add git
+                ;;
               archarm*)
                 pacman -Syyu --noconfirm
                 pacman -S git which --noconfirm
