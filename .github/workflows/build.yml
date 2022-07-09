@@ -15,7 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2.1.0
-      fetch-depth: 0
       # run on arch
       - uses: uraimo/run-on-arch-action@v2
         name: Build artifact
@@ -23,6 +22,7 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           distro: ${{ matrix.distro }}
+          fetch-depth: 0
 
           # Not required, but speeds up builds
           githubToken: ${{ github.token }}
