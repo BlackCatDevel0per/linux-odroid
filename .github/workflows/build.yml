@@ -5,13 +5,17 @@ jobs:
     runs-on: ubuntu-18.04
     name: Build on aarch64
     steps:
-      - uses: actions/checkout@v1.0.0
-      - uses: uraimo/run-on-arch-action@v1.0.8
+      - uses: actions/checkout@2
+      - uses: uraimo/run-on-arch-action@2
         id: runmakepkg
         with:
           architecture: aarch64
           distribution: ubuntu18.04
-          run: |
+          shell: /bin/sh
+          install: |
+            pacman -Syyu --noconfirm
+            pacman -S git which --noconfirm
             pacman -S makepkg
+          build:
             makepkg
 
