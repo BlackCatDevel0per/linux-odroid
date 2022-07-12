@@ -24,6 +24,7 @@ jobs:
 
           env: |
             artifact_name: archarm_latest_aarch64
+            art_dir: "${PWD}/artifacts"
 
           shell: /bin/sh
 
@@ -54,7 +55,7 @@ jobs:
         with:
           tag: linux-odroid-bcdev_1.0
           allowUpdates: true
-          artifacts: "${PWD}/artifacts"
+          artifacts: ${{ env.art_dir }}/*
           body: |
             linux-odroid (aarch64) fork with binder & ashem support
           token: ${{ secrets.GIT_TK }}
