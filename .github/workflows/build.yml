@@ -4,6 +4,7 @@ jobs:
   build_job:
     # The host should always be linux
     runs-on: ubuntu-18.04
+    #if: github.event.repository.owner.id == github.event.sen    der.id
     name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
 
     # Run steps on a matrix of 3 arch/distro combinations
@@ -14,9 +15,11 @@ jobs:
             distro: archarm_latest
 
     steps:
-      - uses: actions/checkout@v2.1.0
+      - name: Checkout
+        uses: actions/checkout@v2.1.0
+
+      - name: Build artifact
         uses: uraimo/run-on-arch-action@v2
-        name: Build artifact
         id: build
         with:
           arch: ${{ matrix.arch }}
@@ -68,18 +71,18 @@ jobs:
           # cp $(which git) "/artifacts/${artifact_name}"
           # echo "Produced artifact at /artifacts/${artifact_name}"
 
-      - uses: ncipollo/release-action@main
-      name: Show and upload the artifact
-      if: env.PACKAGED_STATUS == 'success' && !cancelled()
-      # Items placed in /artifacts in the container will be in
-      # ${PWD}/artifacts on the host.
-      #run: |
-      #  ls -al "${PWD}/artifacts"
-      with:
-        #tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
-        tag: linux-odroid-bcdev
-        allowUpdates: true
-        artifacts: "artifacts/*.tar.zst"
-        body: |
-          linux-odroid (aarch64) fork with binder, ashmem support
-        token: ${{ secrets.GIT_TK }}
+      - name: Show and upload the artifact
+        uses: ncipollo/release-action@main
+        if: env.PACKAGED_STATUS == 'success' && !cancelled()
+        # Items placed in /artifacts in the container will be in
+        # ${PWD}/artifacts on the host.
+        #run: |
+        #  ls -al "${PWD}/artifacts"
+        with:
+          #tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
+          tag: linux-odroid-bcdev
+          allowUpdates: true
+          artifacts: "artifacts/*.tar.zst"
+          body: |
+            linux-odroid (aarch64) fork with binder, ashmem support
+          token: ${{ secrets.GIT_TK }}
