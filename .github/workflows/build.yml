@@ -14,13 +14,13 @@ jobs:
             distro: archarm_latest
 
     steps:
-      uses: actions/checkout@v2.1.0
-      uses: uraimo/run-on-arch-action@v2
-      name: Build artifact
-      id: build
-      with:
-        arch: ${{ matrix.arch }}
-        distro: ${{ matrix.distro }}
+      - uses: actions/checkout@v2.1.0
+        uses: uraimo/run-on-arch-action@v2
+        name: Build artifact
+        id: build
+        with:
+          arch: ${{ matrix.arch }}
+          distro: ${{ matrix.distro }}
 
         # Not required, but speeds up builds
         githubToken: ${{ github.token }}
