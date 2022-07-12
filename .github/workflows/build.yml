@@ -58,6 +58,7 @@ jobs:
           esac
 
         # Produce a binary artifact and place it in the mounted volume
+      - name: Build
         run: |
           useradd -m -G wheel -s /bin/bash user
           sudo chown -R user .
