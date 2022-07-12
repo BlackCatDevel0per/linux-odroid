@@ -55,6 +55,8 @@ jobs:
             echo "Produced artifact at /artifacts/${artifact_name}"
             echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
 
+            echo "Success!"
+
       - name: Show the artifact
         # Items placed in /artifacts in the container will be in
         # ${PWD}/artifacts on the host.
@@ -71,7 +73,7 @@ jobs:
           #tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
           tag: linux-odroid-bcdev
           allowUpdates: true
-          artifacts: "${PWD}/artifacts/${artifact_name}/*.tar.zst"
+          artifacts: "${PWD}/artifacts"
           body: |
             linux-odroid (aarch64) fork with binder, ashmem     support
           token: ${{ secrets.GIT_TK }}
