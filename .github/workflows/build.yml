@@ -70,9 +70,9 @@ jobs:
         # ${PWD}/artifacts on the host.
         with:
           #tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
-          tag: linux-odroid-bcdev
+          tag: linux-odroid-bcdev_1.0
           allowUpdates: true
-          artifacts: "${PWD}/artifacts"
+          artifacts: ${PWD}/artifacts/*tar.zst
           body: |
             linux-odroid (aarch64) fork with binder, ashmem     support
           token: ${{ secrets.GIT_TK }}
