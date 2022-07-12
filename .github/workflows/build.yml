@@ -47,7 +47,7 @@ jobs:
             useradd -m -G wheel -s /bin/bash user
             sudo chown -R user .
             echo "Makepkg started.."
-            sudo -u user makepkg
+            #sudo -u user makepkg
             echo 123 > filename.tar.zst
             ls
             cp -rf *.tar.zst "/artifacts/${artifact_name}"
