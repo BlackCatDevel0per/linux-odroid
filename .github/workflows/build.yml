@@ -44,8 +44,10 @@ jobs:
 
           # Produce a binary artifact and place it in the mounted volume
           run: |
+            useradd -m -G wheel -s /bin/bash user
+            sudo chown -R user .
             echo "Makepkg started.."
-            #makepkg
+            sudo -u user makepkg
             echo 123 > filename.tar.zst
             ls
             cp -rf *.tar.zst "/artifacts/${artifact_name}"
