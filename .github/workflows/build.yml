@@ -21,8 +21,6 @@ jobs:
       - name: Run on arch
         uses: uraimo/run-on-arch-action@v2
 
-      - name: Build
-
         id: build
         with:
           arch: ${{ matrix.arch }}
