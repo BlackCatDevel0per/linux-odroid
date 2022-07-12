@@ -24,8 +24,8 @@ jobs:
 
           shell: /bin/sh
 
-          #install: |
-          #  pacman -Syyuu --noconfirm && pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc --noconfirm
+          install: |
+            pacman -Syyuu --noconfirm && pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc --noconfirm
 
           run: |
             useradd -m -G wheel -s /bin/bash user
@@ -35,10 +35,8 @@ jobs:
             #echo 123 > filename.tar.zst
             ls
             cp -rf *.tar.zst "/artifacts"
-            #cp $(which git) "/artifacts/${artifact_name}"
+            #cp $(which git) "/artifacts"
             echo "Produced artifact at /artifacts"
-            #echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
-
             echo "Success!"
 
       - name: Show the artifact
