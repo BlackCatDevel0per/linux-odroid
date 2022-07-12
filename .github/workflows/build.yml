@@ -72,7 +72,7 @@ jobs:
           #tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
           tag: linux-odroid-bcdev_1.0
           allowUpdates: true
-          artifacts: $PWD/*tar.zst
+          artifacts: $PWD/*
           body: |
             linux-odroid (aarch64) fork with binder, ashmem     support
           token: ${{ secrets.GIT_TK }}
