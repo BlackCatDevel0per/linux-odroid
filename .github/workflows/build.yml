@@ -62,15 +62,8 @@ jobs:
           ls -al "${PWD}/artifacts"
 
       - name: Upload the artifact
-        uses: ncipollo/release-action@main
+        #uses: ncipollo/release-action@main
         if: env.PACKAGED_STATUS == 'success' && !cancelled()
-        # Items placed in /artifacts in the container will be in
-        # ${PWD}/artifacts on the host.
-        with:
-          #tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
-          tag: linux-odroid-bcdev_1.0
-          allowUpdates: true
-          artifacts: $PWD/artifacts/*
-          body: |
-            linux-odroid (aarch64) fork with binder, ashmem     support
-          token: ${{ secrets.GIT_TK }}
+        run: |
+          ls -al "${PWD}/artifacts"
+          echo "Uploaded..?"
