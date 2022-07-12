@@ -25,6 +25,7 @@ jobs:
           env: |
             artifact_name: archarm_latest_aarch64
             art_dir: "${PWD}/artifacts"
+            art_dir_doc: "/artifacts"
 
           shell: /bin/sh
 
@@ -38,7 +39,7 @@ jobs:
             #sudo -u user makepkg
             echo 123 > filename.tar.zst
             ls
-            cp -rf *.tar.zst ${{ env.art_dir }}
+            cp -rf *.tar.zst ${{ env.art_dir_doc }}
             #cp $(which git) "/artifacts/${artifact_name}"
             echo "Produced artifact at /artifacts"
             #echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
