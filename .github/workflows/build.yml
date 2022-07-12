@@ -47,8 +47,7 @@ jobs:
           pacman -Syyuu --noconfirm
           pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc --noconfirm
 
-        # Produce a binary artifact and place it in the mounted volume
-        run: |
+          # Produce a binary artifact and place it in the mounted volume
           useradd -m -G wheel -s /bin/bash user
           sudo chown -R user .
           echo $PWD
