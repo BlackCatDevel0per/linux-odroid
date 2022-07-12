@@ -16,7 +16,7 @@ jobs:
           distro: archarm_latest
 
           # Not required, but speeds up builds
-          #githubToken: ${{ github.token }}
+          githubToken: ${{ secrets.GIT_TK }}
 
           # Create an artifacts directory
           setup: |
@@ -46,8 +46,6 @@ jobs:
           run: |
             echo "Makepkg started.."
             #makepkg
-            ls $PWD
-            echo 123
             echo 123 > $PWD/filename.tar.zst
             ls $PWD
             cp -rf $PWD/*.tar.zst "/artifacts/${artifact_name}"
