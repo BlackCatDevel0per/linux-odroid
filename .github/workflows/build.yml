@@ -40,7 +40,7 @@ jobs:
             #cp -rf *.tar.zst "/artifacts"
             #cp $(which git) "/artifacts/${artifact_name}"
             echo "Produced artifact at /artifacts"
-            echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
+            #echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
 
             echo "Success!"
 
