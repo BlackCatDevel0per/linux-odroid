@@ -41,7 +41,7 @@ jobs:
 
       - name: Show the artifact
         run: |
-          ls -al "/artifacts/"
+          ls -al "artifacts/"
 
       - name: Upload the artifact
         uses: ncipollo/release-action@main
