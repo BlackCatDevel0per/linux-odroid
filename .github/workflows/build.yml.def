@@ -4,7 +4,14 @@ jobs:
   build_job:
     # The host should always be linux
     runs-on: ubuntu-18.04
-    name: Build on archarm_latest aarch64
+    name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
+
+    # Run steps on a matrix of 3 arch/distro combinations
+    strategy:
+      matrix:
+        include:
+          - arch: aarch64
+            distro: archarm_latest
 
     steps:
       - uses: actions/checkout@v2.1.0
@@ -12,8 +19,8 @@ jobs:
         name: Build artifact
         id: build
         with:
-          arch: aarch64
-          distro: archarm_latest
+          arch: ${{ matrix.arch }}
+          distro: ${{ matrix.distro }}
 
           # Not required, but speeds up builds
           githubToken: ${{ secrets.GIT_TK }}
@@ -28,7 +35,7 @@ jobs:
 
           # Pass some environment variables to the container
           env: | # YAML, but pipe character is necessary
-            artifact_name: git-archarm_latest_aarch64
+            artifact_name: git-${{ matrix.distro }}_${{ matrix.arch }}
 
           # The shell to run commands with in the container
           shell: /bin/sh
@@ -40,8 +47,12 @@ jobs:
           # publicly in your project's package repository, so it is vital that
           # no secrets are present in the container state or logs.
           install: |
-            pacman -Syyuu --noconfirm
-            pacman -S git which --noconfirm
+            case "${{ matrix.distro }}" in
+              archarm*)
+                pacman -Syyuu --noconfirm
+                pacman -S git which --noconfirm
+                ;;
+            esac
 
           # Produce a binary artifact and place it in the mounted volume
           run: |
