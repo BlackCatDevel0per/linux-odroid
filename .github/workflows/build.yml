@@ -14,72 +14,72 @@ jobs:
             distro: archarm_latest
 
     steps:
-        uses: actions/checkout@v2.1.0
-        uses: uraimo/run-on-arch-action@v2
-        name: Build artifact
-        id: build
-        with:
-          arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
+      uses: actions/checkout@v2.1.0
+      uses: uraimo/run-on-arch-action@v2
+      name: Build artifact
+      id: build
+      with:
+        arch: ${{ matrix.arch }}
+        distro: ${{ matrix.distro }}
 
-          # Not required, but speeds up builds
-          githubToken: ${{ github.token }}
+        # Not required, but speeds up builds
+        githubToken: ${{ github.token }}
 
-          # Create an artifacts directory
-          setup: |
-            mkdir -p "${PWD}/artifacts"
+        # Create an artifacts directory
+        setup: |
+          mkdir -p "${PWD}/artifacts"
 
-          # Mount the artifacts directory as /artifacts in the container
-          dockerRunArgs: |
-            --volume "${PWD}/artifacts:/artifacts"
+        # Mount the artifacts directory as /artifacts in the container
+        dockerRunArgs: |
+          --volume "${PWD}/artifacts:/artifacts"
 
-          # Pass some environment variables to the container
-          env: | # YAML, but pipe character is necessary
-            artifact_name: git-${{ matrix.distro }}_${{ matrix.arch }}
+        # Pass some environment variables to the container
+        env: | # YAML, but pipe character is necessary
+          artifact_name: git-${{ matrix.distro }}_${{ matrix.arch }}
 
-          # The shell to run commands with in the container
-          shell: /bin/sh
+        # The shell to run commands with in the container
+        shell: /bin/sh
 
-          # Install some dependencies in the container. This speeds up builds if
-          # you are also using githubToken. Any dependencies installed here will
-          # be part of the container image that gets cached, so subsequent
-          # builds don't have to re-install them. The image layer is cached
-          # publicly in your project's package repository, so it is vital that
-          # no secrets are present in the container state or logs.
-          install: |
-            case "${{ matrix.distro }}" in
-              archarm*)
-                pacman -Syyuu --noconfirm
-                pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc --noconfirm
-                ;;
-            esac
+        # Install some dependencies in the container. This speeds up builds if
+        # you are also using githubToken. Any dependencies installed here will
+        # be part of the container image that gets cached, so subsequent
+        # builds don't have to re-install them. The image layer is cached
+        # publicly in your project's package repository, so it is vital that
+        # no secrets are present in the container state or logs.
+        install: |
+          case "${{ matrix.distro }}" in
+            archarm*)
+              pacman -Syyuu --noconfirm
+              pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc --noconfirm
+              ;;
+          esac
 
-          # Produce a binary artifact and place it in the mounted volume
-          run: |
-            useradd -m -G wheel -s /bin/bash user
-            sudo chown -R user .
-            echo $PWD
-            ls -l $PWD
-            echo 123 > $PWD/file.tar.zst
-            #sudo -u user makepkg
-            sudo cp -rf $PWD/*.tar.zst "/artifacts/${artifact_name}"
-            # Set success build
+        # Produce a binary artifact and place it in the mounted volume
+        run: |
+          useradd -m -G wheel -s /bin/bash user
+          sudo chown -R user .
+          echo $PWD
+          ls -l $PWD
+          echo 123 > $PWD/file.tar.zst
+          #sudo -u user makepkg
+          sudo cp -rf $PWD/*.tar.zst "/artifacts/${artifact_name}"
+          # Set success build
             echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
-            # cp $(which git) "/artifacts/${artifact_name}"
-            # echo "Produced artifact at /artifacts/${artifact_name}"
+          # cp $(which git) "/artifacts/${artifact_name}"
+          # echo "Produced artifact at /artifacts/${artifact_name}"
 
-        - uses: ncipollo/release-action@main
-        name: Show and upload the artifact
-        if: env.PACKAGED_STATUS == 'success' && !cancelled()
-        # Items placed in /artifacts in the container will be in
-        # ${PWD}/artifacts on the host.
-        #run: |
-        #  ls -al "${PWD}/artifacts"
-        with:
-          #tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
-          tag: linux-odroid-bcdev
-          allowUpdates: true
-          artifacts: "artifacts/*.tar.zst"
-          body: |
-            linux-odroid (aarch64) fork with binder, ashmem support
-          token: ${{ secrets.GIT_TK }}
+      - uses: ncipollo/release-action@main
+      name: Show and upload the artifact
+      if: env.PACKAGED_STATUS == 'success' && !cancelled()
+      # Items placed in /artifacts in the container will be in
+      # ${PWD}/artifacts on the host.
+      #run: |
+      #  ls -al "${PWD}/artifacts"
+      with:
+        #tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
+        tag: linux-odroid-bcdev
+        allowUpdates: true
+        artifacts: "artifacts/*.tar.zst"
+        body: |
+          linux-odroid (aarch64) fork with binder, ashmem support
+        token: ${{ secrets.GIT_TK }}
