@@ -65,8 +65,7 @@ jobs:
 
       - name: Upload the artifact
         uses: ncipollo/release-action@main
-        if: env.PACKAGED_STATUS == 'success'
-        # && !cancelled()
+        if: env.PACKAGED_STATUS == 'success' && !cancelled()
         # Items placed in /artifacts in the container will be in
         # ${PWD}/artifacts on the host.
         with:
