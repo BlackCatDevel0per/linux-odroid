@@ -4,15 +4,13 @@ jobs:
   build_job:
     # The host should always be linux
     runs-on: ubuntu-18.04
-    #if: github.event.repository.owner.id == github.event.sen    der.id
     name: Build on archarm_latest aarch64
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.1.0
       - uses: uraimo/run-on-arch-action@v2
-        name: Init
-
-        id: init
+        name: Build artifact
+        id: build
         with:
           arch: aarch64
           distro: archarm_latest
@@ -30,7 +28,7 @@ jobs:
 
           # Pass some environment variables to the container
           env: | # YAML, but pipe character is necessary
-            artifact_name: git-${{ matrix.distro }}_${{ matrix.arch }}
+            artifact_name: git-archarm_latest_aarch64
 
           # The shell to run commands with in the container
           shell: /bin/sh
@@ -46,31 +44,22 @@ jobs:
             pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc --noconfirm
 
           # Produce a binary artifact and place it in the mounted volume
-        run: |
-            useradd -m -G wheel -s /bin/bash user
-            sudo chown -R user .
-            echo $PWD
-            ls -l $PWD
-            echo 123 > $PWD/file.tar.zst
-            #sudo -u user makepkg
-            sudo cp -rf $PWD/*.tar.zst "/artifacts/${artifact_name}"
-            # Set success build
+          run: |
+            cp $(which git) "/artifacts/${artifact_name}"
+            echo "Produced artifact at /artifacts/${artifact_name}"
             echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
-            # cp $(which git) "/artifacts/${artifact_name}"
-            # echo "Produced artifact at /artifacts/${artifact_name}"
 
       - name: Show and upload the artifact
         uses: ncipollo/release-action@main
-        if: env.PACKAGED_STATUS == 'success' && !cancelled()
+        if: env.PACKAGED_STATUS == 'success'
+        # && !cancelled()
         # Items placed in /artifacts in the container will be in
         # ${PWD}/artifacts on the host.
-        #run: |
-        #  ls -al "${PWD}/artifacts"
         with:
           #tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
           tag: linux-odroid-bcdev
           allowUpdates: true
           artifacts: "artifacts/*.tar.zst"
           body: |
-            linux-odroid (aarch64) fork with binder, ashmem support
+            linux-odroid (aarch64) fork with binder, ashmem     support
           token: ${{ secrets.GIT_TK }}
