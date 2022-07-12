@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.1.0
+        uses: actions/checkout@v2
 
       - name: Run on arch
         uses: uraimo/run-on-arch-action@v2
