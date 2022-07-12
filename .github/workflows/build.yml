@@ -38,7 +38,7 @@ jobs:
             #sudo -u user makepkg
             echo 123 > filename.tar.zst
             ls
-            cp -rf *.tar.zst "${PWD}/artifacts"
+            cp -rf *.tar.zst ${{ env.art_dir }}
             #cp $(which git) "/artifacts/${artifact_name}"
             echo "Produced artifact at /artifacts"
             #echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
@@ -47,7 +47,7 @@ jobs:
 
       - name: Show the artifact
         run: |
-          ls -al "${PWD}/artifacts"
+          ls -al ${{ env.art_dir }}
 
       - name: Upload the artifact
         uses: ncipollo/release-action@main
