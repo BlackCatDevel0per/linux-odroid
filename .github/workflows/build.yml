@@ -44,9 +44,9 @@ jobs:
 
             echo "Success!"
 
-        - name: Show the artifact
-          run: |
-            ls -al "${PWD}/artifacts"
+        name: Show the artifact
+        run: |
+          ls -al "${PWD}/artifacts"
 
       #- name: Upload the artifact
       #  uses: ncipollo/release-action@main
