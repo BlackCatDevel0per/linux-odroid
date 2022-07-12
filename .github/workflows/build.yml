@@ -69,8 +69,8 @@ jobs:
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
 
+        - uses: ncipollo/release-action@main
         name: Show and upload the artifact
-        uses: ncipollo/release-action@main
         if: env.PACKAGED_STATUS == 'success' && !cancelled()
         # Items placed in /artifacts in the container will be in
         # ${PWD}/artifacts on the host.
