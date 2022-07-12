@@ -50,7 +50,7 @@ jobs:
             case "${{ matrix.distro }}" in
               archarm*)
                 pacman -Syyuu --noconfirm
-                pacman -S git --noconfirm
+                pacman -S git which --noconfirm
                 ;;
             esac
 
