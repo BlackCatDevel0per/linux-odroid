@@ -48,7 +48,7 @@ jobs:
         with:
           tag: linux-odroid-bcdev_1.0
           allowUpdates: true
-          artifacts: "${PWD}/artifacts/*"
+          artifacts: "${PWD}/artifacts/*.tar.zst"
           body: |
             linux-odroid (aarch64) fork with binder & ashem support
           token: ${{ secrets.GIT_TK }}
