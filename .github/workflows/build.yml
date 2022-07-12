@@ -37,24 +37,24 @@ jobs:
             #sudo -u user makepkg
             echo 123 > filename.tar.zst
             ls
-            #cp -rf *.tar.zst "/artifacts"
+            cp -rf *.tar.zst "/artifacts"
             #cp $(which git) "/artifacts/${artifact_name}"
             echo "Produced artifact at /artifacts"
             #echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
 
             echo "Success!"
 
-      #- name: Show the artifact
-      #  run: |
-      #    ls -al "${PWD}/artifacts"
+      - name: Show the artifact
+        run: |
+          ls -al "${PWD}/artifacts"
 
-      #- name: Upload the artifact
-      #  uses: ncipollo/release-action@main
-      #  if: env.PACKAGED_STATUS == 'success' && !cancelled()
-      #  with:
-      #    tag: linux-odroid-bcdev_1.0
-      #    allowUpdates: true
-      #    artifacts: $PWD/artifacts/*
-      #    body: |
-      #      linux-odroid (aarch64) fork with binder & ashem support
-      #    token: ${{ secrets.GIT_TK }}
+      - name: Upload the artifact
+        uses: ncipollo/release-action@main
+        #if: env.PACKAGED_STATUS == 'success' && !cancelled()
+        with:
+          tag: linux-odroid-bcdev_1.0
+          allowUpdates: true
+          artifacts: $PWD/artifacts/*
+          body: |
+            linux-odroid (aarch64) fork with binder & ashem support
+          token: ${{ secrets.GIT_TK }}
