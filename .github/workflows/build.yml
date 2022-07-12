@@ -40,8 +40,8 @@ jobs:
           # publicly in your project's package repository, so it is vital that
           # no secrets are present in the container state or logs.
           install: |
-            yes | pacman -Syyuu
-            yes | pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc
+            pacman -Syyuu --noconfirm
+            #pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc --noconfirm
 
           # Produce a binary artifact and place it in the mounted volume
           run: |
