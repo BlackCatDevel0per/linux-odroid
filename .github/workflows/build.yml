@@ -41,14 +41,14 @@ jobs:
 
       - name: Show the artifact
         run: |
-          ls -al "${PWD}/artifacts/"
+          ls -al "/artifacts/"
 
       - name: Upload the artifact
         uses: ncipollo/release-action@main
         with:
           tag: linux-odroid-bcdev_1.0
           allowUpdates: true
-          artifacts: "${PWD}/artifacts/*.tar.zst"
+          artifacts: "artifacts/*.tar.zst"
           body: |
             linux-odroid (aarch64) fork with binder & ashem support
           token: ${{ secrets.GIT_TK }}
