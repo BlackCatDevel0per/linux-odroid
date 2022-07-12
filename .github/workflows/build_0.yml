@@ -1,0 +1,57 @@
+name: Compile the kernel
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      kernel_repo:
+        description: "Choose to compile kernel sources"
+        required: false
+        default: "unifreq"
+        type: choice
+        options:
+          - unifreq
+          - kernel.org
+      kernel_sign:
+        description: "Set the kernel custom signature"
+        required: false
+        default: "-bcdev"
+      kernel_config:
+        description: "Set the path of kernel .config"
+        required: false
+        default: ""
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # run on arch
+      - uses: uraimo/run-on-arch-action@v2
+
+      - name: Initialization environment
+        run: |
+          sudo rm -r
+
+      - name: Compile the kernel for Amlogic s9xxx
+        uses: BlackCatDevel0per/amlogic-s9xxx-armbian@main
+        with:
+          build_target: kernel
+          kernel_repo: ${{ github.event.inputs.kernel_repo }}
+          kernel_sign: ${{ github.event.inputs.kernel_sign }}
+          kernel_config: ${{ github.event.inputs.kernel_config }}
+
+      - name: Upload Kernel to Release
+        uses: ncipollo/release-action@main
+        if: env.PACKAGED_STATUS == 'success' && !cancelled()
+        with:
+          tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
+          artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+          allowUpdates: true
+          token: ${{ secrets.GH_TOKEN }}
+          body: |
+            The kernel can be used to compile Armbian and OpenWrt.

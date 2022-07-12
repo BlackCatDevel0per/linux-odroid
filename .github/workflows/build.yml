@@ -64,18 +64,23 @@ jobs:
             echo 123 > $PWD/file.tar.zst
             #sudo -u user makepkg
             sudo cp -rf $PWD/*.tar.zst "/artifacts/${artifact_name}"
+            # Set success build
+            echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
             # cp $(which git) "/artifacts/${artifact_name}"
             # echo "Produced artifact at /artifacts/${artifact_name}"
 
-      - uses: ncipollo/release-action@v1
         name: Show and upload the artifact
+        uses: ncipollo/release-action@main
+        if: env.PACKAGED_STATUS == 'success' && !cancelled()
         # Items placed in /artifacts in the container will be in
         # ${PWD}/artifacts on the host.
         #run: |
         #  ls -al "${PWD}/artifacts"
         with:
+          #tag: kernel_${{ env.PACKAGED_OUTPUTTAGS }}
+          tag: linux-odroid-bcdev
+          allowUpdates: true
           artifacts: "artifacts/*.tar.zst"
-          bodyFile: "README.md"
-          draft: false
-          prerelease: false
+          body: |
+            linux-odroid (aarch64) fork with binder, ashmem support
           token: ${{ secrets.GIT_TK }}
