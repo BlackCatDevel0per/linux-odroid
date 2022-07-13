@@ -8068,6 +8068,7 @@ CONFIG_RAS=y
 #
 # CONFIG_ANDROID is not set
 # end of Android
+SHADOW_CALL_STACK=y
 
 # CONFIG_LIBNVDIMM is not set
 CONFIG_DAX=m
