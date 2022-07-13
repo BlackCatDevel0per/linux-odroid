@@ -23,7 +23,7 @@ source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
         '90-linux.hook')
 md5sums=('1ce3185ef67306feeee3886a432327b8'
          '1b92d7617e60d3c525a4b18ab4351185'
-         '745cb8395f48404def23abb74c8e5328'
+         'f6cdfd6fa8b7c6a4f1e48831e669518a'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
