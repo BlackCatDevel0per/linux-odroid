@@ -25,7 +25,7 @@ jobs:
           shell: /bin/sh
 
           install: |
-            pacman -Syyuu --noconfirm && pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio>=0.7 fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc --noconfirm
+            pacman -Syyuu --noconfirm && pacman -S git which base-devel binutils make gcc pkg-config fakeroot coreutils kmod mkinitcpio fbset uboot-tools crda xmlto docbook-xsl kmod inetutils bc --noconfirm
 
           run: |
             useradd -m -G wheel -s /bin/bash user
