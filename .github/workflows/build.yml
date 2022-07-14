@@ -4,6 +4,7 @@ jobs:
   build_job:
     runs-on: ubuntu-18.04
     name: Build on archarm_latest aarch64
+    timeout-minutes: 420
 
     steps:
       - uses: actions/checkout@v2.1.0
