@@ -4,7 +4,6 @@ jobs:
   build_job:
     runs-on: ubuntu-18.04
     name: Build on archarm_latest aarch64
-    timeout-minutes: 480
 
     steps:
       - uses: actions/checkout@v2.1.0
@@ -32,7 +31,7 @@ jobs:
             useradd -m -G wheel -s /bin/bash user
             sudo chown -R user .
             echo "Makepkg started.."
-            sudo -u user CC="ccache gcc" makepkg
+            sudo -u user makepkg
             #echo 123 > filename.tar.zst
             ls
             cp -rf *.tar.zst "/artifacts"
