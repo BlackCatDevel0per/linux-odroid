@@ -48,14 +48,12 @@ prepare() {
     sed -i '2iexit 0' scripts/depmod.sh
   
     #make menuconfig
-    #cp ./.config "${srcdir}/config"
+	#
+    cp ./.config "${srcdir}/config"
 }
 
 build() {
   cd "${srcdir}/${_srcname}"
-
-  # Fix kernel config def (noload)
-  cp "../config" ".config"
 
   # get kernel version
   make -j $(nproc --all) HOSTCC="ccache clang" HOSTCXX="ccache clang++" CC="ccache gcc" CXX="ccache g++" prepare
