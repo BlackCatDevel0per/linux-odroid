@@ -4,7 +4,7 @@ jobs:
   build_job:
     runs-on: ubuntu-18.04
     name: Build on archarm_latest aarch64
-    timeout-minutes: 420
+    timeout-minutes: 480
 
     steps:
       - uses: actions/checkout@v2.1.0
@@ -31,11 +31,8 @@ jobs:
           run: |
             useradd -m -G wheel -s /bin/bash user
             sudo chown -R user .
-            echo "Enabling ccache.."
-            export CC="ccache gcc"
-            echo $CC
             echo "Makepkg started.."
-            sudo -u user makepkg
+            sudo -u user CC="ccache gcc" makepkg
             #echo 123 > filename.tar.zst
             ls
             cp -rf *.tar.zst "/artifacts"
