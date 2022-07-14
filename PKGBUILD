@@ -17,13 +17,15 @@ options=('!strip')
 replaces=('linux-vim')
 source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
         'https://gitlab.manjaro.org/manjaro-arm/packages/core/linux-khadas/-/raw/master/0065-add-ugoos-device.patch'
-	'config'
+        'config'
+        'config.anbox'
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('1ce3185ef67306feeee3886a432327b8'
          '1b92d7617e60d3c525a4b18ab4351185'
-		 'ad9f88921fbf2b1506b982217b24f382'
+         '2d4dcd4e190dac6c1828d5d5771919c4'
+         'b8d23199cfc2e9992c4a8644559bfea6'
          'fbb7f2695efe0c83265cad1c5e6f0a81'
          'ce6c81ad1ad1f8b333fd6077d47abdaf'
          '3dc88030a8f2f5a5f97266d99b149f77')
@@ -40,6 +42,10 @@ prepare() {
     # Bootsplash patches
 
     cat "${srcdir}/config" > ./.config
+    # Add anbox config
+    # from https://gitlab.manjaro.org/packages/core/linux59/-/blob/b2d83e6150ff07cad3ad0256530aba41b7f9fd16/PKGBUILD
+    # line 132 - because changes in the configuration file will be erased..
+    cat "${srcdir}/config.anbox" >> ./.config
 
     # add pkgrel to extraversion
     sed -ri "s|^(EXTRAVERSION =)(.*)|\1 \2-${pkgrel}|" Makefile
@@ -49,7 +55,7 @@ prepare() {
   
     #make menuconfig
 	#
-    cp ./.config "${srcdir}/config"
+    #cp ./.config "${srcdir}/config"
 }
 
 build() {
@@ -63,11 +69,11 @@ build() {
   #make menuconfig # CLI menu for configuration
   #make nconfig # new CLI menu for configuration
   #make xconfig # X-based configuration
-  #make oldconfig # using old config from previous kernel version
+  make oldconfig # using old config from previous kernel version
   # ... or manually edit .config
 
   # Copy back our configuration (use with new kernel version)
-  cp ./.config /var/tmp/${pkgbase}.config
+  #$cp ./.config /var/tmp/${pkgbase}.config
 
   ####################
   # stop here
