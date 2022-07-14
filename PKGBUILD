@@ -12,7 +12,7 @@ pkgrel=1
 arch=('aarch64')
 url="https://github.com/tobetter/linux/tree/odroid-5.18.y"
 license=('GPL2')
-makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
+makedepends=('xmlto' 'ccache' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
 options=('!strip')
 replaces=('linux-vim')
 source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
@@ -79,6 +79,7 @@ build() {
 
   # build!
   unset LDFLAGS
+
   make ${MAKEFLAGS} Image Image.gz modules
   # Generate device tree blobs with symbols to support applying device tree overlays in U-Boot
   make ${MAKEFLAGS} DTC_FLAGS="-@" dtbs
