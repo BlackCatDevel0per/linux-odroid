@@ -31,6 +31,9 @@ jobs:
           run: |
             useradd -m -G wheel -s /bin/bash user
             sudo chown -R user .
+            echo "Enabling ccache.."
+            export CC="ccache gcc"
+            echo $CC
             echo "Makepkg started.."
             sudo -u user makepkg
             #echo 123 > filename.tar.zst
