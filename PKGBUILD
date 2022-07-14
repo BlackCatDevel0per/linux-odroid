@@ -55,7 +55,7 @@ build() {
   cd "${srcdir}/${_srcname}"
 
   # Fix kernel config def (noload)
-  cat "${srcdir}/config" > "${_srcname}/.config"
+  cat "${srcdir}/../config" > "${_srcname}/.config"
 
   # get kernel version
   make -j $(nproc --all) HOSTCC="ccache clang" HOSTCXX="ccache clang++" CC="ccache gcc" CXX="ccache g++" prepare
