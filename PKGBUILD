@@ -12,7 +12,7 @@ pkgrel=1
 arch=('aarch64')
 url="https://github.com/tobetter/linux/tree/odroid-5.18.y"
 license=('GPL2')
-makedepends=('xmlto' 'ccache' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
+makedepends=('xmlto' 'ccache' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'gcc' 'clang' 'llvm' 'llvm-libs')
 options=('!strip')
 replaces=('linux-vim')
 source=("https://github.com/tobetter/linux/archive/${_commit}.tar.gz"
@@ -54,8 +54,11 @@ prepare() {
 build() {
   cd "${srcdir}/${_srcname}"
 
+  # Fix kernel config def (noload)
+  cat "${srcdir}/config" > "${_srcname}/.config"
+
   # get kernel version
-  make prepare
+  make -j $(nproc --all) HOSTCC="ccache clang" HOSTCXX="ccache clang++" CC="ccache gcc" CXX="ccache g++" prepare
 
   # load configuration
   # Configure the kernel. Replace the line below with one of your choice.
@@ -80,9 +83,9 @@ build() {
   # build!
   unset LDFLAGS
 
-  make -j 4 CC="ccache gcc" CXX="ccache g++" ${MAKEFLAGS} Image Image.gz modules
+  make -j $(nproc --all) HOSTCC="ccache clang" HOSTCXX="ccache clang++" CC="ccache gcc" CXX="ccache g++" ${MAKEFLAGS} Image Image.gz modules
   # Generate device tree blobs with symbols to support applying device tree overlays in U-Boot
-  make -j 4 CC="ccache gcc" CXX="ccache g++" ${MAKEFLAGS} DTC_FLAGS="-@" dtbs
+  make -j $(nproc --all) HOSTCC="ccache clang" HOSTCXX="ccache clang++" CC="ccache gcc" CXX="ccache g++" ${MAKEFLAGS} DTC_FLAGS="-@" dtbs
 }
 
 _package() {
@@ -105,8 +108,8 @@ _package() {
   _basekernel=${_basekernel%.*}
 
   mkdir -p "${pkgdir}"/{boot,usr/lib/modules}
-  make INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
-  make INSTALL_DTBS_PATH="${pkgdir}/boot/dtbs" dtbs_install
+  make -j $(nproc --all) CC="ccache gcc" CXX="ccache g++" INSTALL_MOD_PATH="${pkgdir}/usr" modules_install
+  make -j $(nproc --all) CC="ccache gcc" CXX="ccache g++" INSTALL_DTBS_PATH="${pkgdir}/boot/dtbs" dtbs_install
   cp arch/$KARCH/boot/Image{,.gz} "${pkgdir}/boot"
 
    # make room for external modules
